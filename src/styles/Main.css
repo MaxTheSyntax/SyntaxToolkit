@@ -1,0 +1,113 @@
+h1 {
+	font-family: 'Secular One', sans-serif;
+	margin-top: 0px;
+	font-size: 90px;
+}
+
+#header {
+	width: 100%;
+	background-color: rgb(35, 35, 35);
+	height: 70px;
+	position: fixed;
+	transform: translateY(-100px);
+	display: flex;
+}
+
+#header-welcome {
+	margin: auto;
+	margin-left: 15px;
+	font-family: 'Secular One', sans-serif;
+	font-size: 30px;
+	line-height: 70px; /* div height */
+	float: inline-start;
+}
+
+#header-sections {
+	margin: auto;
+	width: 100%;
+	text-align: center;
+	line-height: 70px; /*div height */
+	position: absolute;
+}
+
+.header-section {
+	color: whitesmoke;
+	text-decoration: inherit;
+	margin: auto;
+	margin-inline: 15px;
+	font-size: 20px;
+	font-family: 'Ropa Sans', sans-serif;
+	display: inline-block;
+	line-height: 70px; /* div height */
+}
+
+#welcome {
+	text-align: center;
+}
+
+#logo {
+	animation-name: logo;
+	animation-duration: 3s;
+	margin-top: 100px;
+	margin-bottom: 0px;
+	font-size: 90px;
+}
+
+@keyframes logo {
+	0% {
+		color: rgba(0, 0, 0, 0);
+		transform: translateY(-150%);
+	}
+	50% {
+		transform: translateY(50%);
+	}
+}
+
+#logo-subtitle {
+	font-size: 17px;
+	margin-top: 0px;
+	animation-name: logo-subtitle;
+	animation-duration: 4s;
+}
+
+@keyframes logo-subtitle {
+	0% {
+		color: rgba(0, 0, 0, 0);
+	}
+	75% {
+		color: rgba(0, 0, 0, 0);
+	}
+}
+
+#introduction {
+	margin-top: 50px;
+}
+
+.paragraph-content {
+	animation-name: content;
+	animation-duration: 4.25s;
+	text-align: justify;
+}
+
+@keyframes content {
+	0% {
+		color: rgba(0, 0, 0, 0);
+	}
+	80% {
+		color: rgba(0, 0, 0, 0);
+	}
+}
+
+.left-paragraph {
+	float: left;
+	margin-left: 10%;
+	margin-right: 5%;
+	width: 35%;
+}
+
+.right-paragraph {
+	float: right;
+	margin-right: 10%;
+	margin-left: 5%;
+	width: 35%;
+}

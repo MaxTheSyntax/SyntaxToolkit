@@ -1,0 +1,13 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+	/* Bootstrap changes */
+	--bs-tertiary-bg-rgb: 25, 25, 25;
+	--bs-emphasis-color-rgb: 245, 222, 179;
+
+	background-color: rgb(50, 50, 50);
+	color: whitesmoke;
+}

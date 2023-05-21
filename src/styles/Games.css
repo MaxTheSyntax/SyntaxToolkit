@@ -1,0 +1,27 @@
+body {
+	--gameWidth: 300px;
+	--gameHeight: 400px;
+}
+
+.title {
+	margin: 20px;
+	font-size: 60px;
+}
+
+.games {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
+	grid-gap: 20px;
+	margin: 50px;
+}
+
+.gameCover {
+	width: var(--gameWidth);
+	height: var(--gameHeight);
+}
+
+.playButton {
+	position: relative;
+	bottom: 30px;
+	left: 255px;
+}
