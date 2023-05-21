@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+// import express from 'express';
+// import cors from 'cors';
+// const app = express();
+// app.use(express.json());
+// app.use(cors());
 import '../../styles/Games.css';
 
 function Games() {
@@ -51,6 +56,9 @@ function Games() {
 }
 
 async function getMissingCover(): Promise<string> {
+	const APIres = await axios.get('http://localhost:8800/steamapi');
+	// const numberOfGames = res.json(APIres.data.game_count);
+
 	return 'https://cdn.cloudflare.steamstatic.com/steam/apps/440/header.jpg';
 }
 

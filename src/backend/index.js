@@ -1,11 +1,13 @@
 import express from 'express';
-import mysql from 'mysql';
 import cors from 'cors';
+import mysql from 'mysql';
 import axios from 'axios';
 import dotenv from 'dotenv';
-dotenv.config();
 
+dotenv.config();
 const app = express();
+app.use(express.json());
+app.use(cors());
 
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 
@@ -33,7 +35,7 @@ app.get('/steamapi', async (req, res) => {
 		const userSteamID = '76561198265061661';
 		const q = '/IPlayerService/GetOwnedGames';
 		const APIres = await axios.get(`http://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${userSteamID}&format=json`);
-		console.log(APIres.data.response);
+		// console.log(APIres.data.response);
 		return res.json(APIres.data.response);
 	} catch (err) {
 		res.status(500);
@@ -43,17 +45,14 @@ app.get('/steamapi', async (req, res) => {
 });
 
 app.post('/games', (req, res) => {
-	const q = 'INSERT INTO games (`title`, `cover`) VALUES (?)';
-	const values = [req.body.title, req.body.cover];
+	const q = 'INSERT INTO games (`title`, `cover`, `runURL`) VALUES (?)';
+	const values = [req.body.title, req.body.cover, req.body.runURL];
 
-	db.query(q, [values], (err) => {
+	db.query(q, [values], (err, data) => {
 		if (err) return res.json(err);
-		return res.json('Game uploaded successfully');
+		return res.json(data);
 	});
 });
-
-app.use(express.json());
-app.use(cors());
 
 app.listen(8800, () => {
 	console.log('Connected to server');
