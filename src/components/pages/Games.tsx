@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import express from 'express';
-// import cors from 'cors';
-// const app = express();
-// app.use(express.json());
-// app.use(cors());
 import '../../styles/Games.css';
 
 function Games() {
 	const [games, setGames] = useState<any[]>([]);
 	const [missingCover, setMissingCover] = useState<string>('');
+	const [steamRes, setSteamRes] = useState<{ game_count: number } | null>(null);
 
 	useEffect(() => {
 		async function fetchAllGames() {
@@ -30,14 +26,24 @@ function Games() {
 			}
 		}
 
+		async function fetchSteamAPIres() {
+			try {
+				const APIres = await axios.get('http://localhost:8800/steamapi');
+				setSteamRes(APIres.data);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+
 		fetchAllGames();
 		fetchMissingCover();
+		fetchSteamAPIres();
 	}, []);
 
 	return (
 		<div className="gamesPage">
 			<center>
-				<h1 className="title">Games</h1>
+				<h1 className="title">Games ({steamRes !== null && steamRes.game_count})</h1>
 			</center>
 			<div className="games">
 				{games.map((game) => (
@@ -56,9 +62,6 @@ function Games() {
 }
 
 async function getMissingCover(): Promise<string> {
-	const APIres = await axios.get('http://localhost:8800/steamapi');
-	// const numberOfGames = res.json(APIres.data.game_count);
-
 	return 'https://cdn.cloudflare.steamstatic.com/steam/apps/440/header.jpg';
 }
 

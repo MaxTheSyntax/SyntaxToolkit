@@ -19,7 +19,7 @@ function Main() {
 					</p>
 				</div>
 				<div className="right-paragraph">
-					<p className="paragraph-content">We were founded in 2021, and we made still haven't made one piece of software.</p>
+					<p className="paragraph-content">We were founded in 2021, and we still haven't made one piece of software.</p>
 				</div>
 			</div>
 		</div>
