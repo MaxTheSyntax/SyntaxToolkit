@@ -18,6 +18,8 @@ const db = mysql.createConnection({
 	database: 'items',
 });
 
+// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'quickpass';
+
 app.get('/', (req, res) => {
 	res.json('Nothing here!');
 });
@@ -34,7 +36,8 @@ app.get('/steamapi', async (req, res) => {
 	try {
 		const userSteamID = '76561198265061661';
 		const q = '/IPlayerService/GetOwnedGames';
-		const APIres = await axios.get(`http://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${userSteamID}&format=json`);
+		const additionalArguments = '&include_played_free_games=true';
+		const APIres = await axios.get(`https://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${userSteamID}&format=json${additionalArguments}`);
 		// console.log(APIres.data.response);
 		return res.json(APIres.data.response);
 	} catch (err) {

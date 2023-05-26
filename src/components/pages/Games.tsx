@@ -5,7 +5,11 @@ import '../../styles/Games.css';
 function Games() {
 	const [games, setGames] = useState<any[]>([]);
 	const [missingCover, setMissingCover] = useState<string>('');
-	const [steamRes, setSteamRes] = useState<{ game_count: number } | null>(null);
+	const [steamRes, setSteamRes] = useState<{
+		map: any;
+		game_count: number;
+		games: { appid: number; cover: string; title: string; runURL: string }[];
+	} | null>(null);
 
 	useEffect(() => {
 		async function fetchAllGames() {
@@ -19,8 +23,7 @@ function Games() {
 
 		async function fetchMissingCover() {
 			try {
-				const coverURL = await getMissingCover();
-				setMissingCover(coverURL);
+				setMissingCover(getCover());
 			} catch (err) {
 				console.log(err);
 			}
@@ -40,19 +43,21 @@ function Games() {
 		fetchSteamAPIres();
 	}, []);
 
+	const NNsteamRes = 'steamRes !== null && steamRes';
+
 	return (
 		<div className="gamesPage">
 			<center>
-				<h1 className="title">Games ({steamRes !== null && steamRes.game_count})</h1>
+				<h1 className="title">Games ({steamRes?.game_count})</h1>
 			</center>
 			<div className="games">
-				{games.map((game) => (
-					<div key={game.id} className="game">
+				{steamRes?.games.map((game) => (
+					<div key={game.appid} className="game">
 						{game.cover && (
-							<img className="gameCover" src={game.cover !== 'missing' ? `src/assets/${game.cover}` : missingCover} alt={`Cover art of ${game.title}`} />
+							<img className="gameCover" src={getCover() !== 'missing' ? `src/assets/${game.cover}` : missingCover} alt={`Cover art of ${game.title}`} />
 						)}
 						<form className="playButton" action={game.runURL} method="POST">
-							<input type="submit" value="Play" />
+							{steamRes !== null && steamRes.games.map((steamGame) => <input key={game.appid} type="submit" value={steamGame.appid} />)}
 						</form>
 					</div>
 				))}
@@ -61,7 +66,7 @@ function Games() {
 	);
 }
 
-async function getMissingCover(): Promise<string> {
+function getCover() {
 	return 'https://cdn.cloudflare.steamstatic.com/steam/apps/440/header.jpg';
 }
 
