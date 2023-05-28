@@ -43,24 +43,24 @@ function Games() {
 		fetchSteamAPIres();
 	}, []);
 
-	const NNsteamRes = 'steamRes !== null && steamRes';
-
 	return (
 		<div className="gamesPage">
 			<center>
 				<h1 className="title">Games ({steamRes?.game_count})</h1>
 			</center>
 			<div className="games">
-				{steamRes?.games.map((game) => (
-					<div key={game.appid} className="game">
-						{game.cover && (
-							<img className="gameCover" src={getCover() !== 'missing' ? `src/assets/${game.cover}` : missingCover} alt={`Cover art of ${game.title}`} />
-						)}
-						<form className="playButton" action={game.runURL} method="POST">
-							{steamRes !== null && steamRes.games.map((steamGame) => <input key={game.appid} type="submit" value={steamGame.appid} />)}
-						</form>
-					</div>
-				))}
+				{steamRes?.games.map(
+					(
+						game // Make a div for each game
+					) => (
+						<div key={game.appid} className="game">
+							{game.cover && <img className="gameCover" src={getCover() !== 'missing' ? `src/assets/${game.cover}` : missingCover} alt={`Cover art of ${game.title}`} />}
+							<form className="playButton" action={`steam://launch/${game.appid}`} method="POST">
+								<input key={game.appid} type="submit" value={game.appid} />
+							</form>
+						</div>
+					)
+				)}
 			</div>
 		</div>
 	);
