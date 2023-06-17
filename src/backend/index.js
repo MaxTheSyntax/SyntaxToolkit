@@ -36,7 +36,7 @@ app.get('/steamapi', async (req, res) => {
 	try {
 		const userSteamID = '76561198265061661';
 		const q = '/IPlayerService/GetOwnedGames';
-		const additionalArguments = '&include_played_free_games=true';
+		const additionalArguments = '&include_played_free_games=true&include_appinfo=true';
 		const APIres = await axios.get(`https://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${userSteamID}&format=json${additionalArguments}`);
 		// console.log(APIres.data.response);
 		return res.json(APIres.data.response);

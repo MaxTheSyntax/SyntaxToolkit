@@ -11,8 +11,9 @@ body {
 .games {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
-	grid-gap: 20px;
 	margin: 50px;
+
+	justify-content: space-evenly;
 }
 
 .gameCover {
@@ -23,5 +24,8 @@ body {
 .playButton {
 	position: relative;
 	bottom: 30px;
-	left: 255px;
+}
+
+input {
+	width: 100%;
 }

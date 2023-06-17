@@ -8,7 +8,7 @@ function Games() {
 	const [steamRes, setSteamRes] = useState<{
 		map: any;
 		game_count: number;
-		games: { appid: number; cover: string; title: string; runURL: string }[];
+		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
 
 	useEffect(() => {
@@ -30,17 +30,20 @@ function Games() {
 
 	async function getCover(appid: number) {
 		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/hero_capsule.jpg`;
-		const tempCover = 'https://cdn.cloudflare.steamstatic.com/steam/apps/440/hero_capsule.jpg';
 		try {
 			const response = await axios.get(url);
 			if (response.status === 404) {
-				return tempCover;
+				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 			} else {
 				return url;
 			}
 		} catch (error) {
-			return tempCover;
+			return 'missing';
 		}
+	}
+
+	function getMissingCover(appid: number) {
+		return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 	}
 
 	return (
@@ -54,11 +57,11 @@ function Games() {
 					<div key={game.appid} className="game">
 						<img
 							className="gameCover"
-							src={coverUrls[index] === 'https://cdn.cloudflare.steamstatic.com/steam/apps/440/hero_capsule.jpg' ? 'https://cdn.cloudflare.steamstatic.com/steam/apps/220/hero_capsule.jpg' : coverUrls[index]}
-							alt={`Cover art of ${game.title}`}
+							src={coverUrls[index] === 'missing' ? getMissingCover(game.appid) : coverUrls[index]}
+							alt={`Cover art of ${game.name}`}
 						/>
 						<form className="playButton" action={`steam://launch/${game.appid}`} method="POST">
-							<input key={game.appid} type="submit" value={game.appid} />
+							<input key={game.appid} type="submit" value={`Play ${game.name}`} />
 						</form>
 					</div>
 				))}
