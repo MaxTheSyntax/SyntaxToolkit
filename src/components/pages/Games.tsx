@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../../styles/Games.css';
 
 function Games() {
-	const [games, setGames] = useState<any[]>([]);
+	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
 	const [steamRes, setSteamRes] = useState<{
 		map: any;
@@ -20,6 +20,9 @@ function Games() {
 				const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
 				const coverUrls = await Promise.all(coverPromises);
 				setCoverUrls(coverUrls);
+
+				// const filteredGames = steamRes?.games.filter((game) => game.name.toLowerCase().includes(searchQuery.toLowerCase()));
+				// console.log(filteredGames);
 			} catch (err) {
 				console.log(err);
 			}
@@ -29,21 +32,18 @@ function Games() {
 	}, []);
 
 	async function getCover(appid: number) {
-		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/hero_capsule.jpg`;
+		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
 		try {
-			const response = await axios.get(url);
-			if (response.status === 404) {
-				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
-			} else {
-				return url;
+			try {
+				await axios.get(url + 'hero_capsule.jpg');
+				return url + 'hero_capsule.jpg';
+			} catch {
+				return url + 'header.jpg';
 			}
-		} catch (error) {
-			return 'missing';
+		} catch (err) {
+			// console.log(err);
+			return '/src/assets/missingCover.jpg';
 		}
-	}
-
-	function getMissingCover(appid: number) {
-		return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 	}
 
 	return (
@@ -55,13 +55,9 @@ function Games() {
 				{/* Make a div for each game */}
 				{steamRes?.games.map((game, index) => (
 					<div key={game.appid} className="game">
-						<img
-							className="gameCover"
-							src={coverUrls[index] === 'missing' ? getMissingCover(game.appid) : coverUrls[index]}
-							alt={`Cover art of ${game.name}`}
-						/>
+						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
 						<form className="playButton" action={`steam://launch/${game.appid}`} method="POST">
-							<input key={game.appid} type="submit" value={`Play ${game.name}`} />
+							<input key={game.appid} type="submit" value={`Play ${game.name} (${game.appid})`} />
 						</form>
 					</div>
 				))}
