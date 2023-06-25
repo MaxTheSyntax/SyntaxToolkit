@@ -1,6 +1,6 @@
 body {
-	--gameWidth: 374px;
-	--gameHeight: 448px;
+	--gameWidth: 340px; /* gameCoverResWidth(374) / 1.1 */
+	--gameHeight: 407px; /* gameCoverResWidth(448) / 1.1 */
 }
 
 .title {
@@ -11,9 +11,13 @@ body {
 .games {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
-	margin: 50px;
+	margin-inline: 50px;
+	grid-gap: 25px;
+	justify-content: center;
+}
 
-	justify-content: space-evenly;
+.game {
+	height: var(--gameHeight);
 }
 
 .gameCover {
@@ -21,11 +25,30 @@ body {
 	height: var(--gameHeight);
 }
 
-.playButton {
+form {
 	position: relative;
-	bottom: 30px;
+	bottom: 50px;
 }
 
-input {
-	width: 100%;
+.playButton {
+	position: relative;
+	bottom: 10px;
+	left: 280px; /* gameWidth - 60 */
+	width: 50px;
+	height: 50px;
+}
+
+.playButton:hover {
+	top: 5px;
+	left: 0px;
+	width: var(--gameWidth);
+}
+
+.btn-primary {
+	--bs-btn-bg: #11c019 !important;
+	--bs-btn-border-color: #048d0b !important;
+	--bs-btn-hover-bg: #10af18 !important;
+	--bs-btn-hover-border-color: #047c0a !important;
+	--bs-btn-active-bg: #078d0d !important;
+	--bs-btn-active-border-color: #046e09 !important;
 }

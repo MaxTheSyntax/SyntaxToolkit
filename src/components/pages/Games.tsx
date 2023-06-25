@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../../styles/Games.css';
 
 function Games() {
+	// const buttonStatus = [];
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
 	const [steamRes, setSteamRes] = useState<{
@@ -35,13 +36,14 @@ function Games() {
 		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
 		try {
 			try {
-				await axios.get(url + 'hero_capsule.jpg');
+				await axios.head(url + 'hero_capsule.jpg');
 				return url + 'hero_capsule.jpg';
 			} catch {
+				await axios.head(url + 'header.jpg');
 				return url + 'header.jpg';
 			}
-		} catch (err) {
-			// console.log(err);
+		} catch {
+			console.warn(`MISSING COVER for ${appid}`);
 			return '/src/assets/missingCover.jpg';
 		}
 	}
@@ -56,8 +58,10 @@ function Games() {
 				{steamRes?.games.map((game, index) => (
 					<div key={game.appid} className="game">
 						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
-						<form className="playButton" action={`steam://launch/${game.appid}`} method="POST">
-							<input key={game.appid} type="submit" value={`Play ${game.name} (${game.appid})`} />
+						<form action={`steam://launch/${game.appid}`} method="POST">
+							<button type="submit" className="btn btn-primary playButton" /* onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} */>
+								<b>▷</b>
+							</button>
 						</form>
 					</div>
 				))}
