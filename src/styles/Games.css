@@ -39,9 +39,9 @@ form {
 }
 
 .playButton:hover {
-	top: 5px;
 	left: 0px;
 	width: var(--gameWidth);
+	height: 65px;
 }
 
 .btn-primary {

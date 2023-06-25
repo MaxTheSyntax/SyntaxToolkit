@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../../styles/Games.css';
 
 function Games() {
-	// const buttonStatus = [];
+	const [playButtonStatus, setPlayButtonStatus] = useState<boolean[]>([]);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
 	const [steamRes, setSteamRes] = useState<{
@@ -24,6 +24,8 @@ function Games() {
 
 				// const filteredGames = steamRes?.games.filter((game) => game.name.toLowerCase().includes(searchQuery.toLowerCase()));
 				// console.log(filteredGames);
+
+				setPlayButtonStatus(Array(APIres.data.games.length).fill(false));
 			} catch (err) {
 				console.log(err);
 			}
@@ -48,6 +50,12 @@ function Games() {
 		}
 	}
 
+	const handlePlayButtonHover = (appid: number, state: boolean) => (event: React.MouseEvent<HTMLButtonElement>) => {
+		const updatedStatus = [...playButtonStatus]; // Gets the previous state of playButtonStatus
+		updatedStatus[appid] = state;
+		setPlayButtonStatus(updatedStatus);
+	};
+
 	return (
 		<div className="gamesPage">
 			<center>
@@ -59,8 +67,18 @@ function Games() {
 					<div key={game.appid} className="game">
 						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
 						<form action={`steam://launch/${game.appid}`} method="POST">
-							<button type="submit" className="btn btn-primary playButton" /* onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} */>
+							<button
+								type="submit"
+								className="btn btn-primary playButton"
+								onMouseEnter={handlePlayButtonHover(game.appid, true)}
+								onMouseLeave={handlePlayButtonHover(game.appid, false)}
+							>
 								<b>▷</b>
+								{playButtonStatus[game.appid] ? (
+									<>
+										<br /> {game.name}
+									</>
+								) : null}
 							</button>
 						</form>
 					</div>
