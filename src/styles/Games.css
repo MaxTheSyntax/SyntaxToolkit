@@ -21,8 +21,19 @@ body {
 }
 
 .gameCover {
+	position: relative;
+	bottom: var(--gameHeight);
 	width: var(--gameWidth);
 	height: var(--gameHeight);
+	object-fit: scale-down;
+}
+
+.gameCoverBackground {
+	z-index: -1;
+	width: var(--gameWidth);
+	height: var(--gameHeight);
+	filter: blur(10px);
+	object-fit: cover;
 }
 
 form {
@@ -32,10 +43,11 @@ form {
 
 .playButton {
 	position: relative;
-	bottom: 10px;
-	left: 280px; /* gameWidth - 60 */
+	bottom: calc(10px + var(--gameHeight));
+	left: calc(var(--gameWidth) - 60px);
 	width: 50px;
 	height: 50px;
+	z-index: 1;
 }
 
 .playButton:hover {

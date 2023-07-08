@@ -65,6 +65,7 @@ function Games() {
 				{/* Make a div for each game */}
 				{steamRes?.games.map((game, index) => (
 					<div key={game.appid} className="game">
+						<img className="gameCoverBackground" src={coverUrls[index]} />
 						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
 						<form action={`steam://launch/${game.appid}`} method="POST">
 							<button
