@@ -38,8 +38,8 @@ function Games() {
 		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
 		try {
 			try {
-				await axios.head(url + 'hero_capsule.jpg');
-				return url + 'hero_capsule.jpg';
+				await axios.head(url + 'library_hero.jpg');
+				return url + 'library_hero.jpg';
 			} catch {
 				await axios.head(url + 'header.jpg');
 				return url + 'header.jpg';
@@ -65,7 +65,13 @@ function Games() {
 				{/* Make a div for each game */}
 				{steamRes?.games.map((game, index) => (
 					<div key={game.appid} className="game">
-						<img className="gameCoverBackground" src={coverUrls[index]} />
+						<img
+							className="gameLogo"
+							style={{ transform: 'translate(5px, var(--gameHeight))' }}
+							src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/logo.png`}
+							alt={`${game.name} logo`}
+						/>
+						<img className="fade" src={'/src/assets/fade.png'} alt={`${game.name} logo`} />
 						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
 						<form action={`steam://launch/${game.appid}`} method="POST">
 							<button
@@ -74,7 +80,9 @@ function Games() {
 								onMouseEnter={handlePlayButtonHover(game.appid, true)}
 								onMouseLeave={handlePlayButtonHover(game.appid, false)}
 							>
-								<b>▷</b>
+								<svg width="25" viewBox="0 0 460.5 531.74">
+									<polygon fill="#ffffff" points="0.5,0.866 459.5,265.87 0.5,530.874 " />
+								</svg>
 								{playButtonStatus[game.appid] ? (
 									<>
 										<br /> {game.name}

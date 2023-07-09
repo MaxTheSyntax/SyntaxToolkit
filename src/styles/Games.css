@@ -1,6 +1,11 @@
 body {
-	--gameWidth: 340px; /* gameCoverResWidth(374) / 1.1 */
-	--gameHeight: 407px; /* gameCoverResWidth(448) / 1.1 */
+	--gameWidth: 748px; /* gameCoverResWidth(374) * 2 */
+	--gameHeight: 149px; /* gameCoverResHeight(374) / 3 */
+}
+
+svg {
+	stroke: transparent;
+	stroke-width: 0px;
 }
 
 .title {
@@ -21,19 +26,22 @@ body {
 }
 
 .gameCover {
-	position: relative;
-	bottom: var(--gameHeight);
 	width: var(--gameWidth);
 	height: var(--gameHeight);
-	object-fit: scale-down;
+	object-fit: cover;
+	align-content: center;
 }
 
-.gameCoverBackground {
-	z-index: -1;
-	width: var(--gameWidth);
+.fade {
+	position: absolute;
 	height: var(--gameHeight);
-	filter: blur(10px);
-	object-fit: cover;
+	width: var(--gameWidth);
+}
+
+.gameLogo {
+	position: absolute;
+	max-width: calc(var(--gameWidth) / 2);
+	z-index: 1;
 }
 
 form {
@@ -43,11 +51,11 @@ form {
 
 .playButton {
 	position: relative;
-	bottom: calc(10px + var(--gameHeight));
+	bottom: 10px;
 	left: calc(var(--gameWidth) - 60px);
 	width: 50px;
 	height: 50px;
-	z-index: 1;
+	z-index: 2;
 }
 
 .playButton:hover {
