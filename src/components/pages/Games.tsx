@@ -12,6 +12,12 @@ function Games() {
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
 
+	const handlePlayButtonHover = (appid: number, state: boolean) => (event: React.MouseEvent<HTMLButtonElement>) => {
+		const updatedStatus = [...playButtonStatus]; // Gets the previous state of playButtonStatus
+		updatedStatus[appid] = state;
+		setPlayButtonStatus(updatedStatus);
+	};
+
 	useEffect(() => {
 		async function fetchSteamAPIres() {
 			try {
@@ -35,7 +41,7 @@ function Games() {
 	}, []);
 
 	async function getCover(appid: number) {
-		const url = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
+		const url: string = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
 		try {
 			try {
 				await axios.head(url + 'library_hero.jpg');
@@ -50,12 +56,6 @@ function Games() {
 		}
 	}
 
-	const handlePlayButtonHover = (appid: number, state: boolean) => (event: React.MouseEvent<HTMLButtonElement>) => {
-		const updatedStatus = [...playButtonStatus]; // Gets the previous state of playButtonStatus
-		updatedStatus[appid] = state;
-		setPlayButtonStatus(updatedStatus);
-	};
-
 	return (
 		<div className="gamesPage">
 			<center>
@@ -67,27 +67,23 @@ function Games() {
 					<div key={game.appid} className="game">
 						<img
 							className="gameLogo"
-							style={{ transform: 'translate(5px, var(--gameHeight))' }}
+							style={{ transform: `translate(5px, 5px` }}
 							src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/logo.png`}
 							alt={`${game.name} logo`}
 						/>
-						<img className="fade" src={'/src/assets/fade.png'} alt={`${game.name} logo`} />
+						<img className={`fade${playButtonStatus[game.appid] ? ' visible' : ''}`} src={'/src/assets/fade.png'} alt={`${game.name} logo`} />
 						<img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
 						<form action={`steam://launch/${game.appid}`} method="POST">
 							<button
 								type="submit"
-								className="btn btn-primary playButton"
+								className="playButton"
 								onMouseEnter={handlePlayButtonHover(game.appid, true)}
 								onMouseLeave={handlePlayButtonHover(game.appid, false)}
 							>
-								<svg width="25" viewBox="0 0 460.5 531.74">
-									<polygon fill="#ffffff" points="0.5,0.866 459.5,265.87 0.5,530.874 " />
+								<svg className="playGraphic" width="25" viewBox="0 0 460.5 531.74">
+									<polygon fill="#ffffff" points="0.5,0.866 459.5,265.87 0.5,530.874" />
 								</svg>
-								{playButtonStatus[game.appid] ? (
-									<>
-										<br /> {game.name}
-									</>
-								) : null}
+								{playButtonStatus[game.appid] ? <>&nbsp; {game.name}</> : null}
 							</button>
 						</form>
 					</div>
@@ -96,5 +92,4 @@ function Games() {
 		</div>
 	);
 }
-
 export default Games;
