@@ -4,6 +4,11 @@ h1 {
 	font-size: 90px;
 }
 
+.homePage {
+	max-width: 1920px;
+	margin: auto;
+}
+
 #header {
 	width: 100%;
 	background-color: rgb(35, 35, 35);

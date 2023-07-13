@@ -1,9 +1,8 @@
-import React from 'react';
-import '../../styles/Main.css';
+import '../../styles/Home.css';
 
-function Main() {
+function Home() {
 	return (
-		<div className="mainPage">
+		<div className="homePage">
 			<div id="welcome">
 				<h1 id="logo">Welcome to Syntax Toolkit!</h1>
 				<p id="logo-subtitle">
@@ -26,4 +25,4 @@ function Main() {
 	);
 }
 
-export default Main;
+export default Home;
