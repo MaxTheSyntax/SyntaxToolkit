@@ -24,7 +24,7 @@ You can find you Steam API key [at this website](https://steamcommunity.com/dev/
 
 ### Step 1
 
-Go to your steam profile [this website](steamcommunity.com) or Steam client, hover over your profile name and click on `Profile`.
+Go to your steam profile [this website](https://steamcommunity.com) or Steam client, hover over your profile name and click on `Profile`.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1133467699020836994/id1.jpg" width="600px"/>
 
