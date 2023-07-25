@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
+const STEAM_ID = process.env.STEAM_ID;
 
 const db = mysql.createConnection({
 	host: 'localhost',
@@ -37,7 +38,9 @@ app.get('/steamapi', async (req, res) => {
 		const userSteamID = '76561198265061661';
 		const q = '/IPlayerService/GetOwnedGames';
 		const additionalArguments = '&include_played_free_games=true&include_appinfo=true';
-		const APIres = await axios.get(`https://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${userSteamID}&format=json${additionalArguments}`);
+		const APIres = await axios.get(
+			`https://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${STEAM_ID}&format=json${additionalArguments}`
+		);
 		// console.log(APIres.data.response);
 		return res.json(APIres.data.response);
 	} catch (err) {

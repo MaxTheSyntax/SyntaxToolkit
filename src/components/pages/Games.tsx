@@ -55,38 +55,6 @@ function Games() {
 		}
 	}
 
-	/* async function getGameLogo(appid: number) {
-		const updatedStatus = [...playButtonStatus]; // Gets the state of playButtonStatus
-		updatedStatus[appid] = await logoOrTitle(appid);
-		setLogoExists(updatedStatus);
-	}
-
-	async function logoOrTitle(appid: number) {
-		const url: string = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`;
-		try {
-			await axios.head(url);
-			return true;
-		} catch {
-			return false;
-		}
-	}
-
-	function logoRenderer(appid: number, gameName: string) {
-		if (logoExists[appid] === true) {
-			return (
-				<img
-					className="gameLogo"
-					style={{ transform: `translate(5px, 5px)` }}
-					src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`}
-					alt={`${gameName} logo`}
-				/>
-			);
-		} else {
-			console.log('IT WORKS!!!!!');
-			return <p>MISSINGSGGSGS</p>;
-		}
-	} */
-
 	return (
 		<div className="gamesPage">
 			<center>
