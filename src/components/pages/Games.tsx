@@ -4,7 +4,7 @@ import '../../styles/Games.css';
 
 function Games() {
 	const [playButtonStatus, setPlayButtonStatus] = useState<boolean[]>([]);
-	// const [searchQuery, setSearchQuery] = useState<string>('');
+	// const [searchQuery, setSearchQuery] = useState<string>(''); (Will probably never use this lol)
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
 	const [logoExists, setLogoExists] = useState<boolean[]>([]);
 	const [steamRes, setSteamRes] = useState<{
@@ -40,20 +40,32 @@ function Games() {
 	}, []);
 
 	async function getCover(appid: number) {
-		const url: string = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
-		try {
-			try {
-				await axios.head(url + 'library_hero.jpg'); // Will fail if library_hero.jpg is missing
-				return url + 'library_hero.jpg';
-			} catch {
-				await axios.head(url + 'header.jpg'); // same as library_hero.jpg
-				return url + 'header.jpg';
-			}
-		} catch {
-			console.warn(`MISSING COVER for ${appid}`);
-			return '/src/assets/missingCover.jpg';
+		const url: string = `http://localhost:8800/getgamecover/?appid=${appid}`;
+		const response = await axios.get(url);
+		const state = response.data;
+
+		if (state !== 'missingCover.jpg') {
+			return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is library_hero.jpg || missingCover.jpg
+		} else {
+			return `/src/assets/${state}`; // show missingCover.jpg if no cover available
 		}
 	}
+
+	// async function getCover(appid: number) {
+	// 	const url: string = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
+	// 	try {
+	// 		try {
+	// 			await axios.get(url);
+	// 			return url + 'library_hero.jpg';
+	// 		} catch {
+	// 			await axios.head(url + 'header.jpg'); // same as library_hero.jpg
+	// 			return url + 'header.jpg';
+	// 		}
+	// 	} catch {
+	// 		console.warn(`MISSING COVER for ${appid}`);
+	// 		return '/src/assets/missingCover.jpg';
+	// 	}
+	// }
 
 	return (
 		<div className="gamesPage">
