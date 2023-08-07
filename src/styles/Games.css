@@ -27,7 +27,14 @@ body {
 	width: var(--gameWidth);
 	height: var(--gameHeight);
 	object-fit: cover;
-	align-content: center;
+}
+
+.gameLogo {
+	/* position: relative; */
+	/* top: 70%; */
+	max-width: calc(var(--gameWidth) / 2);
+	max-height: var(--gameHeight);
+	z-index: 5;
 }
 
 .fade {
@@ -39,12 +46,6 @@ body {
 
 .visible {
 	visibility: visible;
-}
-
-.gameLogo {
-	position: absolute;
-	max-width: calc(var(--gameWidth) / 2);
-	z-index: 1;
 }
 
 form {

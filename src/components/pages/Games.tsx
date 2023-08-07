@@ -44,28 +44,12 @@ function Games() {
 		const response = await axios.get(url);
 		const state = response.data;
 
-		if (state !== 'missingCover.jpg') {
+		if (state !== 'missing cover!') {
 			return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is library_hero.jpg || missingCover.jpg
 		} else {
-			return `/src/assets/${state}`; // show missingCover.jpg if no cover available
+			return `/src/assets/missingCover.jpg`; // show missingCover.jpg if no cover available
 		}
 	}
-
-	// async function getCover(appid: number) {
-	// 	const url: string = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
-	// 	try {
-	// 		try {
-	// 			await axios.get(url);
-	// 			return url + 'library_hero.jpg';
-	// 		} catch {
-	// 			await axios.head(url + 'header.jpg'); // same as library_hero.jpg
-	// 			return url + 'header.jpg';
-	// 		}
-	// 	} catch {
-	// 		console.warn(`MISSING COVER for ${appid}`);
-	// 		return '/src/assets/missingCover.jpg';
-	// 	}
-	// }
 
 	return (
 		<div className="gamesPage">
@@ -79,14 +63,16 @@ function Games() {
 						key={game.appid}
 						className="game"
 					>
-						{/* {getGameLogo(game.appid)} */}
-						{/* {logoRenderer(game.appid, game.name)} */}
 						<img
 							className={
 								`fade${playButtonStatus[game.appid] ? ' visible' : ''}` /* Decide whether fade.png should be visible */
 							}
 							src={'/src/assets/fade.png'}
 							alt={`${game.name} logo`}
+						/>
+						<img
+							className="gameLogo"
+							src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/logo.png`}
 						/>
 						<img
 							className="gameCover"

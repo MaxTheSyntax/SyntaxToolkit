@@ -50,6 +50,10 @@ app.get('/steamapi', async (req, res) => {
 	}
 });
 
+app.get('/testing', (req, res) => {
+	return res.json(req.query.appid);
+});
+
 app.get('/getgamecover', async (req, res) => {
 	try {
 		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/library_hero.jpg`);
@@ -59,8 +63,8 @@ app.get('/getgamecover', async (req, res) => {
 			await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/header.jpg`);
 			return res.json('header.jpg');
 		} catch (err) {
-			console.log(err);
-			return res.json('missingCover.jpg');
+			// console.log(err);
+			return res.json('missing cover!');
 		}
 	}
 });
