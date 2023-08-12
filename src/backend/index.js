@@ -69,6 +69,15 @@ app.get('/getgamecover', async (req, res) => {
 	}
 });
 
+app.get('/getgamelogo', async (req, res) => {
+	try {
+		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/logo.jpg`);
+		return res.json('logo.jpg');
+	} catch {
+		return res.json('missing logo!');
+	}
+});
+
 app.post('/games', (req, res) => {
 	const q = 'INSERT INTO games (`title`, `cover`, `runURL`) VALUES (?)';
 	const values = [req.body.title, req.body.cover, req.body.runURL];

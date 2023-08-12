@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../styles/Games.css';
 
@@ -36,6 +36,9 @@ function Games() {
 			}
 		}
 
+		// TODO
+		// use what you use for covers to get logos
+
 		prepareOutsideSources();
 	}, []);
 
@@ -51,6 +54,29 @@ function Games() {
 		}
 	}
 
+	const [logoContent, setLogoContent] = useState<JSX.Element | null>(null);
+
+	async function getLogo(appid: number, name: string) {
+		try {
+			const url: string = `http://localhost:8800/getgamelogo/?appid=${appid}`;
+			const response = await axios.get(url);
+			const state = response.data;
+
+			if (state !== 'missing logo!') {
+				setLogoContent(
+					<img
+						className="gameLogo"
+						src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`}
+					/>
+				);
+			} else {
+				setLogoContent(<h2 className="gameLogo">{name}</h2>);
+			}
+		} catch (error) {
+			// console.error('Error loading logo:', error);
+		}
+	}
+
 	return (
 		<div className="gamesPage">
 			<center>
@@ -58,54 +84,57 @@ function Games() {
 			</center>
 			<div className="games">
 				{/* Make a div for each game */}
-				{steamRes?.games.map((game, index) => (
-					<div
-						key={game.appid}
-						className="game"
-					>
-						<img
-							className={
-								`fade${playButtonStatus[game.appid] ? ' visible' : ''}` /* Decide whether fade.png should be visible */
-							}
-							src={'/src/assets/fade.png'}
-							alt={`${game.name} logo`}
-						/>
-						<img
-							className="gameLogo"
-							src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/logo.png`}
-						/>
-						<img
-							className="gameCover"
-							src={coverUrls[index]}
-							alt={`Cover art of ${game.name}`}
-						/>
-						<form
-							action={`steam://launch/${game.appid}`}
-							method="POST"
+				{steamRes?.games.map((game, index) => {
+					// const logoContentPromise = getLogo(game.appid, game.name);
+
+					return (
+						<div
+							key={game.appid}
+							className="game"
 						>
-							<button
-								type="submit"
-								className="playButton"
-								onMouseEnter={handlePlayButtonHover(game.appid, true)}
-								onMouseLeave={handlePlayButtonHover(game.appid, false)}
+							<img
+								className={
+									`fade${
+										playButtonStatus[game.appid] ? ' visible' : ''
+									}` /* Decide whether fade.png should be visible */
+								}
+								src={'/src/assets/fade.png'}
+								alt={`${game.name} logo`}
+							/>
+							{/* {logoContent} */}
+							<img
+								className="gameCover"
+								src={coverUrls[index]}
+								alt={`Cover art of ${game.name}`}
+							/>
+							<form
+								action={`steam://launch/${game.appid}`}
+								method="POST"
 							>
-								<svg
-									className="playGraphic"
-									width="25"
-									viewBox="0 0 460.5 531.74"
+								<button
+									type="submit"
+									className="playButton"
+									onMouseEnter={handlePlayButtonHover(game.appid, true)}
+									onMouseLeave={handlePlayButtonHover(game.appid, false)}
 								>
-									<polygon
-										fill="#ffffff"
-										points="0.5,0.866 459.5,265.87 0.5,530.874"
-									/>
-								</svg>
-								{playButtonStatus[game.appid] /* Show game name on button when button is hovered */ ? (
-									<>&nbsp; {game.name}</>
-								) : null}
-							</button>
-						</form>
-					</div>
-				))}
+									<svg
+										className="playGraphic"
+										width="25"
+										viewBox="0 0 460.5 531.74"
+									>
+										<polygon
+											fill="#ffffff"
+											points="0.5,0.866 459.5,265.87 0.5,530.874"
+										/>
+									</svg>
+									{playButtonStatus[game.appid] /* Show game name on button when button is hovered */ ? (
+										<>&nbsp; {game.name}</>
+									) : null}
+								</button>
+							</form>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);

@@ -30,8 +30,8 @@ body {
 }
 
 .gameLogo {
-	/* position: relative; */
-	/* top: 70%; */
+	position: absolute;
+	transform: translateY(5px);
 	max-width: calc(var(--gameWidth) / 2);
 	max-height: var(--gameHeight);
 	z-index: 5;
