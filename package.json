@@ -4,10 +4,10 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"frontend": "vite",
+		"backend": "nodemon ./src/backend/index.js",
 		"build": "tsc && vite build",
-		"preview": "vite preview",
-		"start": "nodemon ./src/backend/index.js"
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@types/react-router": "^5.1.20",
