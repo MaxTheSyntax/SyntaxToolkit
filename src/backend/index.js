@@ -35,7 +35,6 @@ app.get('/games', (req, res) => {
 
 app.get('/steamapi', async (req, res) => {
 	try {
-		const userSteamID = '76561198265061661';
 		const q = '/IPlayerService/GetOwnedGames';
 		const additionalArguments = '&include_played_free_games=true&include_appinfo=true';
 		const APIres = await axios.get(
@@ -71,10 +70,10 @@ app.get('/getgamecover', async (req, res) => {
 
 app.get('/getgamelogo', async (req, res) => {
 	try {
-		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/logo.jpg`);
-		return res.json('logo.jpg');
+		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/logo.png`);
+		return res.json('logo.png');
 	} catch {
-		return res.json('missing logo!');
+		return res.json('invisible.png');
 	}
 });
 

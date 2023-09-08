@@ -6,18 +6,15 @@ function Games() {
 	const [playButtonStatus, setPlayButtonStatus] = useState<boolean[]>([]);
 	// const [searchQuery, setSearchQuery] = useState<string>(''); (Will probably never use this lol)
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
-	const [logoExists, setLogoExists] = useState<boolean[]>([]);
+	const [logoUrls, setLogoUrls] = useState<string[]>([]);
 	const [steamRes, setSteamRes] = useState<{
 		map: any;
 		game_count: number;
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
 
-	const handlePlayButtonHover = (appid: number, state: boolean) => (event: React.MouseEvent<HTMLButtonElement>) => {
-		const updatedStatus = [...playButtonStatus]; // Gets the state of playButtonStatus
-		updatedStatus[appid] = state;
-		setPlayButtonStatus(updatedStatus);
-	};
+	// TODO
+	// use what you use for covers to get logos
 
 	useEffect(() => {
 		async function prepareOutsideSources() {
@@ -29,52 +26,57 @@ function Games() {
 				const coverUrls = await Promise.all(coverPromises);
 				setCoverUrls(coverUrls);
 
+				const logoPromises = APIres.data.games.map((game: { appid: number }) => getLogo(game.appid));
+				const logoUrls = await Promise.all(logoPromises);
+				setLogoUrls(logoUrls);
+
 				setPlayButtonStatus(Array(APIres.data.games.length).fill(false));
-				setLogoExists(Array(APIres.data.games.length).fill(false));
 			} catch (err) {
 				console.log(err);
 			}
 		}
 
-		// TODO
-		// use what you use for covers to get logos
+		async function getCover(appid: number) {
+			const url: string = `http://localhost:8800/getgamecover/?appid=${appid}`;
+			const response = await axios.get(url); // returns what image should be used for the covers
+			const state = response.data;
+
+			if (state !== 'missing cover!') {
+				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is library_hero.jpg || header.jpg
+			} else {
+				// return `/src/assets/missingCover.jpg`; // show missingCover.jpg if no cover available
+			}
+		}
+
+		async function getLogo(appid: number) {
+			const url: string = `http://localhost:8800/getgamelogo/?appid=${appid}`;
+			const response = await axios.get(url); // returns what image should be used for the logos
+			const state = response.data;
+
+			if (state !== 'invisible.png') {
+				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is always logo.png if cover available
+			} else {
+				return `/src/assets/invisible.png`; // show invisible.png if no cover available
+			}
+		}
 
 		prepareOutsideSources();
 	}, []);
 
-	async function getCover(appid: number) {
-		const url: string = `http://localhost:8800/getgamecover/?appid=${appid}`;
-		const response = await axios.get(url);
-		const state = response.data;
-
-		if (state !== 'missing cover!') {
-			return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is library_hero.jpg || missingCover.jpg
+	function checkGameLogo(index: number, appid: number) {
+		if (logoUrls[index] == `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`) {
+			return true;
 		} else {
-			return `/src/assets/missingCover.jpg`; // show missingCover.jpg if no cover available
+			return false;
 		}
 	}
 
-	const [logoContent, setLogoContent] = useState<JSX.Element | null>(null);
-
-	async function getLogo(appid: number, name: string) {
-		try {
-			const url: string = `http://localhost:8800/getgamelogo/?appid=${appid}`;
-			const response = await axios.get(url);
-			const state = response.data;
-
-			if (state !== 'missing logo!') {
-				setLogoContent(
-					<img
-						className="gameLogo"
-						src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`}
-					/>
-				);
-			} else {
-				setLogoContent(<h2 className="gameLogo">{name}</h2>);
-			}
-		} catch (error) {
-			// console.error('Error loading logo:', error);
-		}
+	function handlePlayButtonHover(appid: number, state: boolean) {
+		return function (event: React.MouseEvent<HTMLButtonElement>) {
+			const updatedStatus = [...playButtonStatus];
+			updatedStatus[appid] = state;
+			setPlayButtonStatus(updatedStatus);
+		};
 	}
 
 	return (
@@ -85,7 +87,8 @@ function Games() {
 			<div className="games">
 				{/* Make a div for each game */}
 				{steamRes?.games.map((game, index) => {
-					// const logoContentPromise = getLogo(game.appid, game.name);
+					const gameLogoVisible: boolean = checkGameLogo(index, game.appid);
+					// const gameLogoVisible: boolean = false;
 
 					return (
 						<div
@@ -99,9 +102,12 @@ function Games() {
 									}` /* Decide whether fade.png should be visible */
 								}
 								src={'/src/assets/fade.png'}
-								alt={`${game.name} logo`}
 							/>
-							{/* {logoContent} */}
+							<h3 className="gameLogoText">{gameLogoVisible ? null : game.name}</h3>
+							<img
+								className="gameLogo"
+								src={logoUrls[index]}
+							/>
 							<img
 								className="gameCover"
 								src={coverUrls[index]}
@@ -139,4 +145,5 @@ function Games() {
 		</div>
 	);
 }
+
 export default Games;

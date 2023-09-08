@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body {
 	--gameWidth: 748px; /* gameCoverResWidth(374) * 2 */
@@ -20,6 +21,7 @@ body {
 }
 
 .game {
+	width: var(--gameWidth);
 	height: var(--gameHeight);
 }
 
@@ -31,10 +33,17 @@ body {
 
 .gameLogo {
 	position: absolute;
-	transform: translateY(5px);
+	margin: 5px;
 	max-width: calc(var(--gameWidth) / 2);
 	max-height: var(--gameHeight);
-	z-index: 5;
+}
+
+.gameLogoText {
+	position: absolute;
+	margin: 15px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: calc(var(--gameWidth) / 15);
+	mix-blend-mode: difference;
 }
 
 .fade {
