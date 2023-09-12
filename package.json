@@ -4,9 +4,11 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
+		"networkfrontend": "vite --host",
 		"frontend": "vite",
 		"backend": "nodemon ./src/backend/index.js",
 		"build": "tsc && vite build",
+		"networkpreview": "vite preview --host",
 		"preview": "vite preview"
 	},
 	"dependencies": {

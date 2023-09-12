@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import mysql from 'mysql';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
@@ -12,25 +11,8 @@ app.use(cors());
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const STEAM_ID = process.env.STEAM_ID;
 
-const db = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'quickpass',
-	database: 'items',
-});
-
-// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'quickpass';
-
 app.get('/', (req, res) => {
 	res.json('Nothing here!');
-});
-
-app.get('/games', (req, res) => {
-	const q = 'SELECT * FROM games ORDER BY title;';
-	db.query(q, (err, data) => {
-		if (err) return res.json(err);
-		return res.json(data);
-	});
 });
 
 app.get('/steamapi', async (req, res) => {
@@ -40,8 +22,20 @@ app.get('/steamapi', async (req, res) => {
 		const APIres = await axios.get(
 			`https://api.steampowered.com${q}/v0001/?key=${STEAM_API_KEY}&steamid=${STEAM_ID}&format=json${additionalArguments}`
 		);
-		// console.log(APIres.data.response);
-		return res.json(APIres.data.response);
+
+		if (req.query.search == undefined) {
+			return res.json(APIres.data.response);
+		} else {
+			const searchQuery = req.query.search.toLowerCase(); // Convert search query to lowercase for case-insensitive matching
+			const games = APIres.data.response.games;
+
+			// Filter games that match the search query
+			const filteredGames = games.filter((game) => {
+				return game.name.toLowerCase().includes(searchQuery);
+			});
+
+			return res.json({ game_count: filteredGames.length, games: filteredGames });
+		}
 	} catch (err) {
 		res.status(500);
 		console.log(err);
@@ -75,16 +69,6 @@ app.get('/getgamelogo', async (req, res) => {
 	} catch {
 		return res.json('invisible.png');
 	}
-});
-
-app.post('/games', (req, res) => {
-	const q = 'INSERT INTO games (`title`, `cover`, `runURL`) VALUES (?)';
-	const values = [req.body.title, req.body.cover, req.body.runURL];
-
-	db.query(q, [values], (err, data) => {
-		if (err) return res.json(err);
-		return res.json(data);
-	});
 });
 
 app.listen(8800, () => {

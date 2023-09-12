@@ -4,7 +4,7 @@
 
 ## Introduction
 
-SyntaxToolkit is planned to have a set of tools that will merge multiple apps into one using the APi`s of said programs. This app is still in tis very early stages of development, so right no the only tool available is to view and play your Steam library.
+SyntaxToolkit is planned to have a set of tools that will merge multiple apps into one using the APi`s of said programs. This app is still in tis very early stages of development, so right now the only tool available is to view and play your Steam library.
 
 ## How to use
 
@@ -26,6 +26,7 @@ STEAM_ID = 'STEAM ID';
 Make sure you have [npm](https://nodejs.org/en/download) installed. Open 2 terminals (ex. powershell) in the project directory. In one type:
 
 ```
+npm i
 npm run frontend
 ```
 
