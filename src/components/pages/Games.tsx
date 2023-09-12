@@ -13,17 +13,13 @@ function Games() {
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
 
-	// TODO
-	// use what you use for covers to get logos
-
 	useEffect(() => {
 		async function prepareOutsideSources() {
 			try {
-				const APIres = await axios.get('http://localhost:8800/steamapi');
-				setSteamRes(APIres.data);
-
+				const APIres = await axios.get(`http://192.168.179.159:8800/steamapi/${getQuery()}`); //
 				const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
 				const coverUrls = await Promise.all(coverPromises);
+				setSteamRes(APIres.data);
 				setCoverUrls(coverUrls);
 
 				const logoPromises = APIres.data.games.map((game: { appid: number }) => getLogo(game.appid));
@@ -37,19 +33,19 @@ function Games() {
 		}
 
 		async function getCover(appid: number) {
-			const url: string = `http://localhost:8800/getgamecover/?appid=${appid}`;
+			const url: string = `http://192.168.179.159:8800/getgamecover/?appid=${appid}`;
 			const response = await axios.get(url); // returns what image should be used for the covers
 			const state = response.data;
 
 			if (state !== 'missing cover!') {
 				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`; // state is library_hero.jpg || header.jpg
 			} else {
-				// return `/src/assets/missingCover.jpg`; // show missingCover.jpg if no cover available
+				return `/src/assets/missingCover.jpg`; // show missingCover.jpg if no cover available
 			}
 		}
 
 		async function getLogo(appid: number) {
-			const url: string = `http://localhost:8800/getgamelogo/?appid=${appid}`;
+			const url: string = `http://192.168.179.159:8800/getgamelogo/?appid=${appid}`;
 			const response = await axios.get(url); // returns what image should be used for the logos
 			const state = response.data;
 
@@ -62,6 +58,17 @@ function Games() {
 
 		prepareOutsideSources();
 	}, []);
+
+	function getQuery() {
+		const queryParameters = new URLSearchParams(window.location.search);
+		const query = queryParameters.get('search');
+
+		if (query != null) {
+			return `?search=${query}`;
+		} else {
+			return '';
+		}
+	}
 
 	function checkGameLogo(index: number, appid: number) {
 		if (logoUrls[index] == `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`) {
@@ -114,6 +121,7 @@ function Games() {
 								alt={`Cover art of ${game.name}`}
 							/>
 							<form
+								className="gameForm"
 								action={`steam://launch/${game.appid}`}
 								method="POST"
 							>

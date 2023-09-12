@@ -3,6 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
 
 body {
+	--accent: aquamarine;
+
 	background-color: rgb(50, 50, 50);
 	color: whitesmoke;
 	margin: 0;

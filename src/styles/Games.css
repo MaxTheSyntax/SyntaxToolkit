@@ -57,7 +57,7 @@ body {
 	visibility: visible;
 }
 
-form {
+form[class='gameForm'] {
 	position: relative;
 	bottom: 50px;
 }

@@ -16,11 +16,13 @@ nav {
 a {
 	font-family: Lato, Sans-Serif;
 	text-decoration: none;
-	color: rgb(245, 222, 179);
+	color: var(--accent);
 	margin-inline: 6px;
 }
 
 .logo {
+	position: absolute;
+	left: 0;
 	margin-inline: 15px;
 }
 
@@ -28,5 +30,23 @@ a {
 	display: flex;
 	justify-content: center;
 	flex-grow: 1;
-	transform: translateX(-4%);
+}
+
+.gameSearch {
+	position: absolute;
+	right: 50px;
+}
+
+input[class='searchBar'] {
+	background-color: rgb(50, 50, 50);
+	color: whitesmoke;
+	padding: 5px 7px;
+	border-color: var(--accent);
+	border-radius: 9999999cm;
+}
+.material-symbols-outlined {
+	position: absolute;
+	margin-inline: 15px;
+	right: -50px;
+	top: 2px;
 }
