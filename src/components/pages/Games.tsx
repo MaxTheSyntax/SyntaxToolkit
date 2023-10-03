@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 import '../../styles/Games.css';
 
 function Games() {
@@ -12,12 +14,13 @@ function Games() {
 		game_count: number;
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
+	const IP = process.env.IP;
 
 	useEffect(() => {
 		async function prepareOutsideSources() {
 			try {
 				// Fetch data from an external API
-				const APIres = await axios.get(`http://192.168.179.159:8800/steamapi/${getQuery()}`);
+				const APIres = await axios.get(`http://${IP}:8800/steamapi/${getQuery()}`);
 
 				// Fetch cover images for each game
 				const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
@@ -38,7 +41,7 @@ function Games() {
 		}
 
 		async function getCover(appid: number) {
-			const url: string = `http://192.168.179.159:8800/getgamecover/?appid=${appid}`;
+			const url: string = `http://${IP}:8800/getgamecover/?appid=${appid}`;
 			const response = await axios.get(url);
 			const state = response.data;
 
@@ -50,7 +53,7 @@ function Games() {
 		}
 
 		async function getLogo(appid: number) {
-			const url: string = `http://192.168.179.159:8800/getgamelogo/?appid=${appid}`;
+			const url: string = `http://${IP}:8800/getgamelogo/?appid=${appid}`;
 			const response = await axios.get(url);
 			const state = response.data;
 
@@ -96,11 +99,11 @@ function Games() {
 	}
 
 	return (
-		<div className="gamesPage">
+		<div className='gamesPage'>
 			<center>
-				<h1 className="title">Games ({steamRes?.game_count})</h1>
+				<h1 className='title'>Games ({steamRes?.game_count})</h1>
 			</center>
-			<div className="games">
+			<div className='games'>
 				{/* Render a div for each game */}
 				{steamRes?.games.map((game, index) => {
 					const gameLogoVisible: boolean = checkGameLogo(index, game.appid);
@@ -108,7 +111,7 @@ function Games() {
 					return (
 						<div
 							key={game.appid}
-							className="game"
+							className='game'
 						>
 							<img
 								className={`fade${playButtonStatus[game.appid] ? ' visible' : ''}`}
@@ -116,33 +119,33 @@ function Games() {
 							/>
 							<h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' invisible'}`}>{game.name}</h3>
 							<img
-								className="gameLogo"
+								className='gameLogo'
 								src={logoUrls[index]}
 							/>
 							<img
-								className="gameCover"
+								className='gameCover'
 								src={coverUrls[index]}
 								alt={`Cover art of ${game.name}`}
 							/>
 							<form
-								className="gameForm"
+								className='gameForm'
 								action={`steam://launch/${game.appid}`}
-								method="POST"
+								method='POST'
 							>
 								<button
-									type="submit"
-									className="playButton"
+									type='submit'
+									className='playButton'
 									onMouseEnter={handlePlayButtonHover(game.appid, true)}
 									onMouseLeave={handlePlayButtonHover(game.appid, false)}
 								>
 									<svg
-										className="playGraphic"
-										width="25"
-										viewBox="0 0 460.5 531.74"
+										className='playGraphic'
+										width='25'
+										viewBox='0 0 460.5 531.74'
 									>
 										<polygon
-											fill="#ffffff"
-											points="0.5,0.866 459.5,265.87 0.5,530.874"
+											fill='#ffffff'
+											points='0.5,0.866 459.5,265.87 0.5,530.874'
 										/>
 									</svg>
 									{playButtonStatus[game.appid] ? <>&nbsp; {game.name}</> : null}
