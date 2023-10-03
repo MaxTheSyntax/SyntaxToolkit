@@ -4,13 +4,13 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"networkfrontend": "vite --host",
-		"frontend": "vite",
+		"networkfrontend": "vite --host --port 80",
+		"frontend": "vite --port 80",
 		"backend": "nodemon ./src/backend/index.js",
 		"dcbot": "nodemon ./src/backend/dcbot.cjs",
 		"build": "tsc && vite build",
-		"networkpreview": "vite preview --host",
-		"preview": "vite preview"
+		"networkpreview": "vite preview --host --port 80",
+		"preview": "vite preview --port 80"
 	},
 	"dependencies": {
 		"@types/react-router": "^5.1.20",
