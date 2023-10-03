@@ -12,7 +12,7 @@ const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const STEAM_ID = process.env.STEAM_ID;
 
 app.get('/', (req, res) => {
-	res.json('Nothing here!');
+	res.send('Nothing here!');
 });
 
 app.get('/steamapi', async (req, res) => {
@@ -68,6 +68,13 @@ app.get('/getgamelogo', async (req, res) => {
 		return res.json('logo.png');
 	} catch {
 		return res.json('invisible.png');
+	}
+});
+
+app.get('/rungame', async (req, res) => {
+	try {
+	} catch {
+		return res.send('Invalid APPID!');
 	}
 });
 

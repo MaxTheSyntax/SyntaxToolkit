@@ -19,3 +19,11 @@ p {
 	font-family: 'Ropa Sans', sans-serif;
 	font-size: large;
 }
+
+.visible {
+	visibility: visible;
+}
+
+.invisible {
+	visibility: hidden;
+}
