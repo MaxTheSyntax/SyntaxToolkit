@@ -67,7 +67,7 @@ app.get('/getgamelogo', async (req, res) => {
 		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/logo.png`);
 		return res.json('logo.png');
 	} catch {
-		return res.json('invisible.png');
+		return res.send('logo missing!');
 	}
 });
 

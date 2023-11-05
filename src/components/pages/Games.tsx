@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
 import '../../styles/Games.css';
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 function Games() {
 	// State variables to manage data
@@ -14,7 +14,7 @@ function Games() {
 		game_count: number;
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
-	const IP = process.env.IP;
+	const IP = 'localhost'; // TODO Try to get .env working
 
 	useEffect(() => {
 		async function prepareOutsideSources() {
@@ -57,10 +57,10 @@ function Games() {
 			const response = await axios.get(url);
 			const state = response.data;
 
-			if (state !== 'invisible.png') {
+			if (state !== 'logo missing!') {
 				return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/${state}`;
 			} else {
-				return `/src/assets/invisible.png`;
+				return '/src/assets/invisible.png';
 			}
 		}
 
@@ -117,7 +117,7 @@ function Games() {
 								className={`fade${playButtonStatus[game.appid] ? ' visible' : ''}`}
 								src={'/src/assets/fade.png'}
 							/>
-							<h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' invisible'}`}>{game.name}</h3>
+							<h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}>{game.name}</h3>
 							<img
 								className='gameLogo'
 								src={logoUrls[index]}
