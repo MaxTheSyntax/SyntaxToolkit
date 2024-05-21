@@ -19,9 +19,9 @@ STEAM_ID = 'STEAM ID';
 DC_TOKEN = 'DISCORD BOT TOKEN';
 APP_ID = 'DISCORD BOT APP ID';
 GUILD_ID = 'DISCORD SERVER ID';
-
-IP = 'YOUR IP';
 ```
+
+The server will run on **localhost:80**
 
 [Click here for how to find API key](https://github.com/MaxTheSyntax/SyntaxToolkit/#finding-your-api-key)
 

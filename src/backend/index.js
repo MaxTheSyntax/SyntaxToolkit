@@ -49,11 +49,15 @@ app.get('/testing', (req, res) => {
 
 app.get('/getgamecover', async (req, res) => {
 	try {
-		await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/library_hero.jpg`);
+		await axios.head(
+			`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/library_hero.jpg`
+		);
 		return res.json('library_hero.jpg');
 	} catch {
 		try {
-			await axios.head(`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/header.jpg`);
+			await axios.head(
+				`https://cdn.cloudflare.steamstatic.com/steam/apps/${req.query.appid}/header.jpg`
+			);
 			return res.json('header.jpg');
 		} catch (err) {
 			// console.log(err);

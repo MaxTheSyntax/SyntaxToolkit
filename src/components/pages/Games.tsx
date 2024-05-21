@@ -10,7 +10,6 @@ function Games() {
 	const [coverUrls, setCoverUrls] = useState<string[]>([]);
 	const [logoUrls, setLogoUrls] = useState<string[]>([]);
 	const [steamRes, setSteamRes] = useState<{
-		map: any;
 		game_count: number;
 		games: { appid: number; cover: string; name: string; runURL: string }[];
 	} | null>(null);
@@ -23,7 +22,9 @@ function Games() {
 				const APIres = await axios.get(`http://${IP}:8800/steamapi/${getQuery()}`);
 
 				// Fetch cover images for each game
-				const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
+				const coverPromises = APIres.data.games.map((game: { appid: number }) =>
+					getCover(game.appid)
+				);
 				const coverUrls = await Promise.all(coverPromises);
 				setSteamRes(APIres.data);
 				setCoverUrls(coverUrls);
@@ -109,19 +110,15 @@ function Games() {
 					const gameLogoVisible: boolean = checkGameLogo(index, game.appid);
 
 					return (
-						<div
-							key={game.appid}
-							className='game'
-						>
+						<div key={game.appid} className='game'>
 							<img
 								className={`fade${playButtonStatus[game.appid] ? ' visible' : ''}`}
 								src={'/src/assets/fade.png'}
 							/>
-							<h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}>{game.name}</h3>
-							<img
-								className='gameLogo'
-								src={logoUrls[index]}
-							/>
+							<h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}>
+								{game.name}
+							</h3>
+							<img className='gameLogo' src={logoUrls[index]} />
 							<img
 								className='gameCover'
 								src={coverUrls[index]}
@@ -131,6 +128,8 @@ function Games() {
 								className='gameForm'
 								action={`steam://launch/${game.appid}`}
 								method='POST'
+								target='_blank'
+								rel='noopener noreferrer'
 							>
 								<button
 									type='submit'
@@ -138,15 +137,8 @@ function Games() {
 									onMouseEnter={handlePlayButtonHover(game.appid, true)}
 									onMouseLeave={handlePlayButtonHover(game.appid, false)}
 								>
-									<svg
-										className='playGraphic'
-										width='25'
-										viewBox='0 0 460.5 531.74'
-									>
-										<polygon
-											fill='#ffffff'
-											points='0.5,0.866 459.5,265.87 0.5,530.874'
-										/>
+									<svg className='playGraphic' width='25' viewBox='0 0 460.5 531.74'>
+										<polygon fill='#ffffff' points='0.5,0.866 459.5,265.87 0.5,530.874' />
 									</svg>
 									{playButtonStatus[game.appid] ? <>&nbsp; {game.name}</> : null}
 								</button>
