@@ -24,16 +24,22 @@ function Navbar() {
 				<a href='/games'>Steam Games</a>
 			</div>
 			<div className='gameSearch'>
-				<form action='/games'>
-					<input
-						className='searchBar'
-						type='text'
-						name='search'
-						placeholder={getQuery()}
-						autoFocus
-					/>
-				</form>
-				<span className='material-symbols-outlined'>search</span>
+				{window.location.pathname !== '/' && (
+					<form action={window.location.pathname}>
+						<label>
+							<input
+								className='searchBar'
+								type='text'
+								name='search'
+								placeholder={getQuery()}
+								autoFocus
+							/>
+							<span className='material-symbols-outlined'>search</span>
+						</label>
+					</form>
+				)}
+				
+				
 			</div>
 		</nav>
 	);

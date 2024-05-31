@@ -50,3 +50,7 @@ input[class='searchBar'] {
 	right: -50px;
 	top: 2px;
 }
+
+.searchBar::placeholder {
+	color: #64738f;
+  }
