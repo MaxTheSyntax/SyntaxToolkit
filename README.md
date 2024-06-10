@@ -4,7 +4,7 @@
 
 ## Introduction
 
-SyntaxToolkit is planned to have a set of tools that will merge multiple apps into one using the APi's of said programs. This app is still in tis very early stages of development, so right now the only tool available is to view and play your Steam library.
+SyntaxToolkit is planned to have a set of tools that will merge multiple apps into one using the APi's of said programs. This app is still in its very early stages of development, so right now the only tool available is to view and play your Steam library.
 
 ## How to use
 
@@ -21,9 +21,9 @@ APP_ID = 'DISCORD BOT APP ID';
 GUILD_ID = 'DISCORD SERVER ID';
 ```
 
-The server will run on **localhost:80**
+The server will run on **localhost:80**.
 
-[Click here for how to find API key](https://github.com/MaxTheSyntax/SyntaxToolkit/#finding-your-api-key)
+[Click here for how to find your API key](https://github.com/MaxTheSyntax/SyntaxToolkit/#finding-your-api-key)
 
 [Click here for how to find your Steam ID](https://github.com/MaxTheSyntax/SyntaxToolkit/#finding-your-steam-id)
 
@@ -31,22 +31,28 @@ The server will run on **localhost:80**
 
 ### Step 2
 
-Make sure you have [npm](https://nodejs.org/en/download) installed. Open 2 terminals (ex. powershell) in the project directory. In one type:
+Make sure you have [npm](https://nodejs.org/en/download) installed. Open 3 terminals (ex. powershell) in the project directory. In one type:
 
 ```
 npm i
 npm run frontend
 ```
 
-And in the other one type:
+And in the second one type:
 
 ```
 npm run backend
 ```
 
+And in the last one, type:
+
+```
+npm run dcbot
+```
+
 ## Finding your API key
 
-You can find you Steam API key [at this website](https://steamcommunity.com/dev/apikey).
+You can find your Steam API key on [this website](https://steamcommunity.com/dev/apikey).
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1133464278121332766/apikey_tutorial.jpg" width="500px;"/>
 
@@ -54,7 +60,7 @@ You can find you Steam API key [at this website](https://steamcommunity.com/dev/
 
 ### Step 1
 
-Go to your steam profile [this website](https://steamcommunity.com) or Steam client, hover over your profile name and click on `Profile`.
+Go to your Steam profile on [this website](https://steamcommunity.com) or Steam client, hover over your profile name, and click on `Profile`.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1133467699020836994/id1.jpg" width="600px"/>
 
@@ -66,7 +72,7 @@ Once you're on your Steam profile, click on the `Edit Profile` button.
 
 ### Step 3
 
-on the Edit Profile page scroll down until you see `Custom URL`. Delete any text that is in the textbox (might already be empty) and copy your Steam ID in the URL below the textbox.
+On the Edit Profile page, scroll down until you see `Custom URL`. Delete any text that is in the textbox (it might already be empty) and copy your Steam ID into the URL below the textbox.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1133475870200299521/id3.gif" />
 
@@ -84,11 +90,11 @@ Name your bot and make sure to accept the [DTOS](https://discord.com/developers/
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158770143179047022/image.png?ex=651d744b&is=651c22cb&hm=e54a76fd2116f53a1ea4ab7e6fc5e4b9c24966cd53ff4f97f1705e70bc35643d&" />
 
-### Step 3 (Getting your Token and ID's)
+### Step 3 (Getting Your Token and ID's)
 
 #### App ID
 
-You should find your App ID on the `General Information` page. Click on the copy button to copy it.
+You should find your app ID on the `General Information` page. Click on the copy button to copy it.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158771696459841537/image.png?ex=651d75bd&is=651c243d&hm=fc7e0bacaf4f178347569b6767d70083e60b16cd7a083f234f7b4755abba8d3c&" />
 
@@ -100,26 +106,26 @@ Go to the `Bot` tab. You should find a `Reset Token` button under your bot's nam
 
 #### Guild ID
 
-This is the ID of the server the bot will operate on. Firrstly enable `Developer Mode` by going to the `Advanced` tab in settings.
+This is the ID of the server the bot will operate on. First, enable `Developer Mode` by going to the `Advanced` tab in settings.
 
- <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773074125148270/image.png?ex=651d7705&is=651c2585&hm=be9c57059680bb442aa98c7e0c1b17c9320f713bfb0edd2dd4faa49cf915a503&" />
+<img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773074125148270/image.png?ex=651d7705&is=651c2585&hm=be9c57059680bb442aa98c7e0c1b17c9320f713bfb0edd2dd4faa49cf915a503&" />
 
-After you have enabled Developer Mode you should be able to right-click on any Discord server and see a `Copy Server ID` button. Click on it to get your `Guild ID`.
+After you have enabled Developer Mode, you should be able to right-click on any Discord server and see a `Copy Server ID` button. Click on it to get your `Guild ID`.
 
- <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773647981428746/image.png?ex=651d778e&is=651c260e&hm=f225c1dda5fbff3e9be16469cd119651baec14292bbc1373c5415d11a535e9d1&" />
+<img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773647981428746/image.png?ex=651d778e&is=651c260e&hm=f225c1dda5fbff3e9be16469cd119651baec14292bbc1373c5415d11a535e9d1&" />
 
 ## Getting your IP
 
-If you plan to host the application on your computer for yourself, you can just type in `localhost` and you're good to go. But if you plan to use the site on a different machine then you have to:
+If you plan to host the application on your computer for yourself, you can just type in `localhost` and you're good to go. But if you plan to use the site on a different machine, then you have to:
 
 ### Step 1
 
-Click `Windows\Super + R`, and type in `cmd` into the windows that appeared, and click `OK`.
+Click `Windows\Super + R`, type in `cmd` into the windows that appeared, and click `OK`.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158774564139061318/image.png?ex=651d7869&is=651c26e9&hm=a6871cf1e506550f3ef77bd26f7a64ec24623943a306d87e88bffb303249b153&" />
 
 ### Step 2
 
-Type in `ipconfig` if on windows, or `ifconfig` if on MacOS \ Linux into the window that just appeared. The `IPv4` section is what you're looking for.
+Type in `ipconfig` if on Windows or `ifconfig` if on MacOS or Linux into the window that just appeared. The `IPv4` section is what you're looking for.
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158775679140237412/image.png?ex=651d7972&is=651c27f2&hm=357e141931dce797c0f308c2ebbe9827813f7df37b93ae403a5ef8666265f63a&" />
