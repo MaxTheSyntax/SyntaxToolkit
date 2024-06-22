@@ -1,11 +1,12 @@
 // Import necessary modules and load environment variables
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { REST, Routes, Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const DC_TOKEN = process.env.DC_TOKEN;
+const APP_ID = process.env.APP_ID;
 
 // Create a new Discord client instance with the intent to interact with guilds
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -16,6 +17,8 @@ client.commands = new Collection();
 // Load command files from the 'commands' directory
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
+
+const commands = [];
 
 // Loop through all the command folders
 for (const folder of commandFolders) {
@@ -28,6 +31,7 @@ for (const folder of commandFolders) {
 		// Add command to the collection if it has 'data' and 'execute' properties
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
+			commands.push(command.data.toJSON());
 		} else {
 			console.log(
 				`[WARNING] The command at ${filePath} is missing a required "data" and/or "execute" property.`
@@ -36,9 +40,30 @@ for (const folder of commandFolders) {
 	}
 }
 
+const rest = new REST().setToken(DC_TOKEN);
+
 // Log a message when the bot is ready
-client.once(Events.ClientReady, () => {
+client.once(Events.ClientReady, async () => {
 	console.log('Ready!');
+	console.log('Refreshing commansd...');
+	// Send a message to all servers
+	for (const guild of client.guilds.cache.values()) {
+		// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
+
+		// 	const channel = guild.systemChannel;
+		// 	if (channel) {
+		// 		await channel.send('bot active');
+		// 	}
+
+		// The put method is used to fully refresh all commands in the guild with the current set
+		const data = await rest.put(Routes.applicationGuildCommands(APP_ID, guild.id), {
+			body: commands,
+		});
+		console.log(
+			`Successfully reloaded ${data.length} application (/) commands for ${guild.name}. ID: ${guild.id}`
+		);
+	}
+	console.log('Done!');
 });
 
 // Handle interactions (commands) from users

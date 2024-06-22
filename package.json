@@ -12,6 +12,7 @@
 		"networkpreview": "vite preview --host --port 80",
 		"preview": "vite preview --port 80"
 	},
+	"proxy": "http://localhost:8800",
 	"dependencies": {
 		"@types/react-router": "^5.1.20",
 		"axios": "^1.4.0",
@@ -27,6 +28,8 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.11.1",
+		"socket.io": "^4.7.5",
+		"socket.io-client": "^4.7.5",
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {

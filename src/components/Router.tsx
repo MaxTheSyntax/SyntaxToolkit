@@ -8,14 +8,16 @@ import { lazy } from 'react';
 const Home = lazy(() => import('./pages/Home'));
 const Games = lazy(() => import('./pages/Games'));
 const Add = lazy(() => import('./pages/Add'));
+const GameLauncher = lazy(() => import('./pages/gamelauncher'));
 
 function Router() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/games" element={<Games />} />
-				<Route path="/add" element={<Add />} />
+				<Route path='/' element={<Home />} />
+				<Route path='/games' element={<Games />} />
+				<Route path='/add' element={<Add />} />
+				<Route path='/launcher' element={<GameLauncher />} />
 			</Routes>
 		</BrowserRouter>
 	);
