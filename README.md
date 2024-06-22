@@ -1,6 +1,6 @@
 # Syntax Toolkit
 
-###### Still in development
+###### Pictures are temporarily unavailable.
 
 ## Introduction
 
@@ -18,7 +18,6 @@ STEAM_ID = 'STEAM ID';
 
 DC_TOKEN = 'DISCORD BOT TOKEN';
 APP_ID = 'DISCORD BOT APP ID';
-GUILD_ID = 'DISCORD SERVER ID';
 ```
 
 The server will run on **localhost:80**.
@@ -104,19 +103,9 @@ Go to the `Bot` tab. You should find a `Reset Token` button under your bot's nam
 
 <img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158772399639109693/image.png?ex=651d7665&is=651c24e5&hm=aa7322c9625a84a880eec620ae3f02c9fc25adaf8412fe9a97438d4377e4748e&" />
 
-#### Guild ID
-
-This is the ID of the server the bot will operate on. First, enable `Developer Mode` by going to the `Advanced` tab in settings.
-
-<img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773074125148270/image.png?ex=651d7705&is=651c2585&hm=be9c57059680bb442aa98c7e0c1b17c9320f713bfb0edd2dd4faa49cf915a503&" />
-
-After you have enabled Developer Mode, you should be able to right-click on any Discord server and see a `Copy Server ID` button. Click on it to get your `Guild ID`.
-
-<img src="https://cdn.discordapp.com/attachments/1133464215924002846/1158773647981428746/image.png?ex=651d778e&is=651c260e&hm=f225c1dda5fbff3e9be16469cd119651baec14292bbc1373c5415d11a535e9d1&" />
-
 ## Getting your IP
 
-If you plan to host the application on your computer for yourself, you can just type in `localhost` and you're good to go. But if you plan to use the site on a different machine, then you have to:
+If you plan to host the application on your computer, you can just type in `localhost` and you're good to go. But if you plan to use the site on a different machine, then you have to:
 
 ### Step 1
 
