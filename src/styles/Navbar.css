@@ -17,7 +17,14 @@ a {
 	font-family: Lato, Sans-Serif;
 	text-decoration: none;
 	color: var(--accent);
-	margin-inline: 6px;
+	margin: 0 15px;
+	transition-duration: 250ms;
+}
+
+.nav-links a:hover {
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	margin: 0 4px;
 }
 
 .logo {
@@ -53,4 +60,4 @@ input[class='searchBar'] {
 
 .searchBar::placeholder {
 	color: #64738f;
-  }
+}
