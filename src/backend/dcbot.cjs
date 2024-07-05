@@ -3,6 +3,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
+const readline = require('readline').createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
 dotenv.config();
 
 const DC_TOKEN = process.env.DC_TOKEN;
@@ -44,26 +48,51 @@ const rest = new REST().setToken(DC_TOKEN);
 
 // Log a message when the bot is ready
 client.once(Events.ClientReady, async () => {
-	console.log('Ready!');
-	console.log('Refreshing commansd...');
-	// Send a message to all servers
-	for (const guild of client.guilds.cache.values()) {
-		// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
+	console.log('Connected!');
 
-		// 	const channel = guild.systemChannel;
-		// 	if (channel) {
-		// 		await channel.send('bot active');
-		// 	}
+	// Ask the user if they want to refresh the commands
+	refresh_commands = true;
+	readline.question('Refresh commands? (y/n) \n', async (refresh_commands_input) => {
+		while (true) {
+			if (refresh_commands_input.toLowerCase() === 'y') {
+				refresh_commands = true;
+				console.log('Refreshing commands...');
+				break;
+			} else if (refresh_commands_input.toLowerCase() === 'n') {
+				refresh_commands = false;
+				console.log('Cancelling');
+				break;
+			}
 
-		// The put method is used to fully refresh all commands in the guild with the current set
-		const data = await rest.put(Routes.applicationGuildCommands(APP_ID, guild.id), {
-			body: commands,
-		});
-		console.log(
-			`Successfully reloaded ${data.length} application (/) commands for ${guild.name}. ID: ${guild.id}`
-		);
-	}
-	console.log('Done!');
+			console.log('Invalid input. Please enter y or n.');
+			refresh_commands_input = await new Promise((resolve) =>
+				readline.question('Refresh commands? (y/n) \n', resolve)
+			);
+		}
+
+		// If user requests to, refresh the commands
+		if (refresh_commands) {
+			for (const guild of client.guilds.cache.values()) {
+				// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
+
+				// 	const channel = guild.systemChannel;
+				// 	if (channel) {
+				// 		await channel.send('bot active');
+				// 	}
+
+				// The put method is used to fully refresh all commands in the guild with the current set
+				const data = await rest.put(Routes.applicationGuildCommands(APP_ID, guild.id), {
+					body: commands,
+				});
+				console.log(
+					`Successfully reloaded ${data.length} slash (/) commands for ${guild.name}. ID: ${guild.id}`
+				);
+			}
+			console.log('Done!');
+		}
+
+		readline.close();
+	});
 });
 
 // Handle interactions (commands) from users
