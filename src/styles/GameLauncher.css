@@ -1,0 +1,26 @@
+h1 {
+	text-align: center;
+	margin: 75px 0 5px;
+}
+
+.listen-text {
+	text-align: center;
+	color: darkslategray;
+}
+
+.last-action {
+	text-align: center;
+}
+
+.action-container {
+	border: 2px white solid;
+	padding: 10px 15px;
+	min-width: 50vw;
+	max-width: 750px;
+	margin: 50px auto;
+	border-radius: 5px;
+}
+
+.action-container p {
+	margin: 15px 0;
+}
