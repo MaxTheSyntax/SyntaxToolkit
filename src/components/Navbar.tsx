@@ -22,7 +22,7 @@ function Navbar() {
 				<a href='/launcher'>Game Launcher</a>
 			</div>
 			<div className='gameSearch'>
-				{window.location.pathname !== '/' && (
+				{window.location.pathname === '/games' && (
 					<form action={window.location.pathname}>
 						<label>
 							<input
