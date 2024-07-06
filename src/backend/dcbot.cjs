@@ -52,13 +52,14 @@ client.once(Events.ClientReady, async () => {
 
 	// Ask the user if they want to refresh the commands
 	refresh_commands = true;
-	readline.question('Refresh commands? (y/n) \n', async (refresh_commands_input) => {
+	readline.question('Refresh commands? (y/N) \n', async (refresh_commands_input) => {
+		input = refresh_commands_input.toLowerCase();
 		while (true) {
-			if (refresh_commands_input.toLowerCase() === 'y') {
+			if (input === 'y') {
 				refresh_commands = true;
 				console.log('Refreshing commands...');
 				break;
-			} else if (refresh_commands_input.toLowerCase() === 'n') {
+			} else if (input === 'n' || input === '') {
 				refresh_commands = false;
 				console.log('Cancelling');
 				break;
@@ -66,7 +67,7 @@ client.once(Events.ClientReady, async () => {
 
 			console.log('Invalid input. Please enter y or n.');
 			refresh_commands_input = await new Promise((resolve) =>
-				readline.question('Refresh commands? (y/n) \n', resolve)
+				readline.question('Refresh commands? (y/N) \n', resolve)
 			);
 		}
 
@@ -75,10 +76,14 @@ client.once(Events.ClientReady, async () => {
 			for (const guild of client.guilds.cache.values()) {
 				// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
 
-				// 	const channel = guild.systemChannel;
-				// 	if (channel) {
-				// 		await channel.send('bot active');
-				// 	}
+				const channel = guild.systemChannel;
+				if (channel) {
+					// await channel.send('bot active');
+					await channel.send({
+						content: 'bot active',
+						flags: [4096], // Used to send a silent message
+					});
+				}
 
 				// The put method is used to fully refresh all commands in the guild with the current set
 				const data = await rest.put(Routes.applicationGuildCommands(APP_ID, guild.id), {
