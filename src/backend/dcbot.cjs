@@ -3,10 +3,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
-const readline = require('readline').createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+const readline = require('node:readline');
+const { Console } = require('node:console');
+// const readline = require('readline').createInterface({
+// 	input: process.stdin,
+// 	output: process.stdout,
+// });
 dotenv.config();
 
 const DC_TOKEN = process.env.DC_TOKEN;
@@ -50,10 +52,13 @@ const rest = new REST().setToken(DC_TOKEN);
 client.once(Events.ClientReady, async () => {
 	console.log('Connected!');
 
-	// Ask the user if they want to refresh the commands
-	refresh_commands = true;
-	readline.question('Refresh commands? (y/N) \n', async (refresh_commands_input) => {
-		input = refresh_commands_input.toLowerCase();
+	const rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout,
+	});
+
+	rl.question('Refresh commands? (y/N) \n', async (input) => {
+		input = input.toLowerCase();
 		while (true) {
 			if (input === 'y') {
 				refresh_commands = true;
@@ -66,25 +71,12 @@ client.once(Events.ClientReady, async () => {
 			}
 
 			console.log('Invalid input. Please enter y or n.');
-			refresh_commands_input = await new Promise((resolve) =>
-				readline.question('Refresh commands? (y/N) \n', resolve)
-			);
+			input = await new Promise((resolve) => rl.question('Refresh commands? (y/N) \n', resolve));
 		}
 
 		// If user requests to, refresh the commands
 		if (refresh_commands) {
 			for (const guild of client.guilds.cache.values()) {
-				// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
-
-				const channel = guild.systemChannel;
-				if (channel) {
-					// await channel.send('bot active');
-					await channel.send({
-						content: 'bot active',
-						flags: [4096], // Used to send a silent message
-					});
-				}
-
 				// The put method is used to fully refresh all commands in the guild with the current set
 				const data = await rest.put(Routes.applicationGuildCommands(APP_ID, guild.id), {
 					body: commands,
@@ -95,11 +87,52 @@ client.once(Events.ClientReady, async () => {
 			}
 			console.log('Done!');
 		}
+		// rl.close();
 
-		readline.close();
+		// Ask user if they want to send an activity message
+		send_activity_message = true;
+		rl.question('Send activity message? (Y/n) \n', async (input) => {
+			input = input.toLowerCase();
+			while (true) {
+				if (input === 'y' || input === '') {
+					send_activity_message = true;
+					console.log('Sending activity message...');
+					break;
+				} else if (input === 'n') {
+					send_activity_message = false;
+					break;
+				}
+
+				console.log('Invalid input. Please enter y or n.');
+				input = await new Promise((resolve) =>
+					rl.question('Send activity message? (Y/n) \n', resolve)
+				);
+			}
+
+			// If user requests to, refresh the commands
+			if (send_activity_message) {
+				for (const guild of client.guilds.cache.values()) {
+					// console.log(`Guild: ${guild.name}, ID: ${guild.id}`);
+
+					const channel = guild.systemChannel;
+					if (channel) {
+						// await channel.send('bot active');
+						await channel.send({
+							content: 'bot active',
+							flags: [4096], // Used to send a silent message
+						});
+					}
+				}
+				console.log('Done!');
+			}
+
+			rl.close();
+			console.log('Discord bot is ready!');
+		});
 	});
-});
 
+	// await new Promise((resolve) => rl.on('close', resolve)); // Wait until the readline interface is closed
+});
 // Handle interactions (commands) from users
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;
