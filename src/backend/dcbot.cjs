@@ -4,7 +4,7 @@ const path = require('node:path');
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
 const readline = require('node:readline');
-const { Console } = require('node:console');
+// const { Console } = require('node:console');
 // const readline = require('readline').createInterface({
 // 	input: process.stdin,
 // 	output: process.stdout,
@@ -15,7 +15,9 @@ const DC_TOKEN = process.env.DC_TOKEN;
 const APP_ID = process.env.APP_ID;
 
 // Create a new Discord client instance with the intent to interact with guilds
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences],
+});
 
 // Initialize a collection to store bot commands
 client.commands = new Collection();
