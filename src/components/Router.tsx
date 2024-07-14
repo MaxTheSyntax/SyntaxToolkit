@@ -8,7 +8,7 @@ import { lazy } from 'react';
 const Home = lazy(() => import('./pages/Home'));
 const Games = lazy(() => import('./pages/Games'));
 const Add = lazy(() => import('./pages/Add'));
-const GameLauncher = lazy(() => import('./pages/gamelauncher'));
+const GameLauncher = lazy(() => import('./pages/GameLauncher'));
 
 function Router() {
 	return (
