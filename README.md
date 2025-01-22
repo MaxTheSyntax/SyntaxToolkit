@@ -13,11 +13,11 @@ SyntaxToolkit is planned to have a set of tools that will merge multiple apps in
 Create a new file called **.env** in the root project folder, and in it, type:
 
 ```js
-STEAM_API_KEY = 'API KEY';
-STEAM_ID = 'STEAM ID';
+STEAM_API_KEY = API KEY
+STEAM_ID = STEAM ID
 
-DC_TOKEN = 'DISCORD BOT TOKEN';
-APP_ID = 'DISCORD BOT APP ID';
+DC_TOKEN = DISCORD BOT TOKEN
+APP_ID = DISCORD BOT APP ID
 ```
 
 The server will run on **localhost:80**.
