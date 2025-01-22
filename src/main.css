@@ -2,9 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
 
-body {
+* {
 	--accent: aquamarine;
+	box-sizing: border-box;
+}
 
+body {
 	background-color: rgb(50, 50, 50);
 	color: whitesmoke;
 	margin: 0;

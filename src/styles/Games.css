@@ -33,9 +33,9 @@ body {
 
 .gameLogo {
 	position: absolute;
-	margin: 5px;
+	margin: 7px;
 	max-width: calc(var(--gameWidth) / 2);
-	max-height: var(--gameHeight);
+	max-height: calc(var(--gameHeight) - 14px); /* 14px for the margin (top and bottom)*/
 	padding: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	background-color: rgba(0, 0, 0, 0.5);
