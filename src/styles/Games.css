@@ -7,8 +7,7 @@ body {
 }
 
 .title {
-	margin-top: 80px;
-	margin-bottom: 20px;
+	margin: 80px 0 0;
 	font-size: 60px;
 }
 
@@ -75,9 +74,10 @@ form[class='gameForm'] {
 	height: 50px;
 	z-index: 2;
 	cursor: pointer;
+	/* transition: all 0.2s ease-in-out; */
 }
 
-.playButton:hover {
+.playButtonHovered {
 	left: 0px;
 	width: var(--gameWidth);
 	height: 65px;

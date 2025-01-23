@@ -5,7 +5,7 @@ function Home() {
 		<div className="homePage">
 			<div id="welcome">
 				<h1 id="logo">Welcome to Syntax Toolkit!</h1>
-				<p id="logo-subtitle">
+				<p id="subtitle logo-subtitle">
 					<i>DEV RELEASE</i>
 				</p>
 			</div>

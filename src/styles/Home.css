@@ -69,8 +69,6 @@ h1 {
 }
 
 #logo-subtitle {
-	font-size: 17px;
-	margin-top: 0px;
 	animation-name: logo-subtitle;
 	animation-duration: 4s;
 }
