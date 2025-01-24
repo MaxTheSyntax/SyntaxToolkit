@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
 body {
 	--gameWidth: 748px; /* gameCoverResWidth(374) * 2 */
 	--gameHeight: 149px; /* gameCoverResHeight(374) / 3 */

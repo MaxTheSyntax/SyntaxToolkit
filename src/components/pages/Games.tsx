@@ -71,7 +71,7 @@ function Games() {
         const queryParameters = new URLSearchParams(window.location.search);
         const query = queryParameters.get('search');
 
-		return query ?? '';
+        return query ?? '';
     }
 
     // Helper function to check if a game's logo is visible
