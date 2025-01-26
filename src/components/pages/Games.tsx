@@ -89,29 +89,6 @@ function Games() {
         };
     }
 
-    function submitAllForms() {
-        // Get the form element from the DOM
-        const formElement = document.querySelector('form.userPicker') as HTMLFormElement;
-        const form = new FormData(formElement);
-        // Create a new FormData object from the form element
-        const formData = new FormData(form as unknown as HTMLFormElement); // Create a new FormData object from the form element
-
-        // Create a new URLSearchParams object
-        const query = new URLSearchParams();
-
-        // Iterate over each pair in the FormData object and add it to the URLSearchParams object
-        for (const pair of formData) {
-            // Add the pair to the URLSearchParams object
-            query.set(pair[0], pair[1] as string);
-        }
-
-        // Get the 'search' query parameter from the URLSearchParams object
-        const searchQuery = query.get('search');
-
-        // Log the 'search' query parameter to the console
-        console.log(searchQuery);
-    }
-
     return (
         <div className='gamesPage'>
             <center>
