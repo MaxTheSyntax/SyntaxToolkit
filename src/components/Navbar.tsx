@@ -23,7 +23,7 @@ function Navbar() {
 			</div>
 			<div className='gameSearch'>
 				{window.location.pathname === '/games' && (
-					<form action={window.location.pathname}>
+					<form action={window.location.pathname} className='search'>
 						<label>
 							<input
 								className='searchBar'
