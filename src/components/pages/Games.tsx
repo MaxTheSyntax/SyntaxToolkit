@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import '../../styles/Games.css';
 // import dotenv from 'dotenv';
@@ -14,6 +14,8 @@ function Games() {
         games: { appid: number; cover: string; name: string; runURL: string }[];
     } | null>(null);
     const IP = 'localhost'; // TODO Try to get .env working
+    // Create array of refs
+    const textRefs = useRef<(HTMLHeadingElement | null)[]>([]);
 
     useEffect(() => {
         async function prepareOutsideSources() {
@@ -64,6 +66,18 @@ function Games() {
         prepareOutsideSources();
     }, []);
 
+    // Check for ellipsis in game titles and adjust font size if necessary
+    useEffect(() => {
+        // Check all game titles for ellipsis
+        steamRes?.games.forEach((game, index) => {
+            const element = textRefs.current[index];
+            if (element && hasEllipsis(element)) {
+                const optimalSize = findOptimalFontSize(element);
+                element.style.fontSize = `${optimalSize}px`;
+            }
+        });
+    }, [steamRes]);
+
     // Helper function to extract the 'search' query parameter from the URL
     function getQuery() {
         const queryParameters = new URLSearchParams(window.location.search);
@@ -88,6 +102,39 @@ function Games() {
         };
     }
 
+    // Helper function to check if element has ellipsis
+    const hasEllipsis = (element: HTMLElement) => {
+        return element.offsetWidth < element.scrollWidth;
+    };
+
+    const findOptimalFontSize = (element: HTMLElement, minSize: number = 10, maxSize: number = 40): number => {
+        // Initialize binary search boundaries
+        let left = minSize;
+        let right = maxSize;
+
+        // Binary search to find the largest font size that fits
+        while (left <= right) {
+            // Calculate the middle point between current min and max
+            const mid = Math.floor((left + right) / 2);
+
+            // Try this font size on the element
+            element.style.fontSize = `${mid}px`;
+
+            // Check if text overflows at current size
+            // offsetWidth: visible width of element
+            // scrollWidth: total width needed for content
+            if (element.offsetWidth < element.scrollWidth) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        // 'right' contains the largest size
+        const optimalSize = right;
+        return optimalSize;
+    };
+
     return (
         <div className='gamesPage'>
             <center>
@@ -106,9 +153,13 @@ function Games() {
                     return (
                         <div key={game.appid} className='game'>
                             <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} />
-                            <div className={`gameLogoTextContainer${gameLogoVisible ? ' invisible' : ' visible'}`}>
-                                <h3 className='gameLogoText'>{game.name}</h3>
-                            </div>
+                            <h3
+                                ref={(el) => (textRefs.current[index] = el)}
+                                className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}
+                                title={game.name}
+                            >
+                                {game.name}
+                            </h3>
                             <img className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`} src={logoUrls[index]} />
                             <img className='gameCover' src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
                             <form

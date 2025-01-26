@@ -1,117 +1,102 @@
 body {
-	--gameWidth: 748px; /* gameCoverResWidth(374) * 2 */
-	--gameHeight: 149px; /* gameCoverResHeight(374) / 3 */
+    --gameWidth: 748px; /* gameCoverResWidth(374) * 2 */
+    --gameHeight: 149px; /* gameCoverResHeight(374) / 3 */
 }
 
 .title {
-	margin: 80px 0 0;
-	font-size: 60px;
+    margin: 80px 0 0;
+    font-size: 60px;
 }
 
 .games {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
-	margin-inline: 50px;
-	grid-gap: 25px;
-	justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
+    margin-inline: 50px;
+    grid-gap: 25px;
+    justify-content: center;
 }
 
 .game {
-	width: var(--gameWidth);
-	height: var(--gameHeight);
+    width: var(--gameWidth);
+    height: var(--gameHeight);
 }
 
 .gameCover {
-	width: var(--gameWidth);
-	height: var(--gameHeight);
-	object-fit: cover;
+    width: var(--gameWidth);
+    height: var(--gameHeight);
+    object-fit: cover;
 }
 
 .gameLogo {
-	position: absolute;
-	margin: 7px;
-	max-width: calc(var(--gameWidth) / 2);
-	max-height: calc(var(--gameHeight) - 14px); /* 14px for the margin (top and bottom)*/
-	padding: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	background-color: rgba(0, 0, 0, 0.5);
-	overflow: hidden;
-}
-
-.gameLogoTextContainer {
-	position: absolute;
-	margin: 15px;
-	padding: 0 10px;
-	font-family: 'Montserrat', sans-serif;
-	font-size: calc(var(--gameWidth) / 15);
-	width: calc(var(--gameWidth) - 30px); /* 30px for the margin (left and right) */
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	background-color: rgba(0, 0, 0, 0.5);
-	white-space: nowrap;
-	overflow-x: hidden;
+    position: absolute;
+    margin: 7px;
+    max-width: calc(var(--gameWidth) / 2);
+    max-height: calc(var(--gameHeight) - 14px); /* 14px for the margin (top and bottom)*/
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
 .gameLogoText {
-	display: inline-block;
-	width: auto;
-	margin: 0;
-	animation: scrollText 15s linear infinite;
-}
-
-@keyframes scrollText {
-	0% {
-		transform: translateX(150%);
-	}
-	100% {
-		transform: translateX(-100%);
-	}
+    position: absolute;
+    margin: 15px;
+    padding: 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    width: calc(var(--gameWidth) - 30px); /* 30px for the margin (left and right) */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .fade {
-	position: absolute;
-	height: var(--gameHeight);
-	width: var(--gameWidth);
-	visibility: hidden;
+    position: absolute;
+    height: var(--gameHeight);
+    width: var(--gameWidth);
+    visibility: hidden;
 }
 
 form[class='gameForm'] {
-	position: relative;
-	bottom: 50px;
+    position: relative;
+    bottom: 50px;
 }
 
 .playButton {
-	position: relative;
-	bottom: 10px;
-	left: calc(var(--gameWidth) - 60px);
-	font-family: 'ZCOOL QingKe HuangYou', sans-serif;
-	font-size: 25px;
-	background-color: #11c019;
-	border: none;
-	border-radius: 10px;
-	width: 50px;
-	height: 50px;
-	z-index: 2;
-	cursor: pointer;
-	/* transition: all 0.2s ease-in-out; */
+    position: relative;
+    bottom: 10px;
+    left: calc(var(--gameWidth) - 60px);
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+    font-size: 25px;
+    background-color: #11c019;
+    border: none;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+    cursor: pointer;
+    /* transition: all 0.2s ease-in-out; */
 }
 
 .playButtonHovered {
-	left: 0px;
-	width: var(--gameWidth);
-	height: 65px;
+    left: 0px;
+    width: var(--gameWidth);
+    height: 65px;
 }
 
 .playGraphic {
-	stroke: transparent;
-	stroke-width: 0px;
-	vertical-align: text-top;
+    stroke: transparent;
+    stroke-width: 0px;
+    vertical-align: text-top;
 }
 
 .btn-primary {
-	--bs-btn-bg: #11c019 !important;
-	--bs-btn-border-color: #048d0b !important;
-	--bs-btn-hover-bg: #10af18 !important;
-	--bs-btn-hover-border-color: #047c0a !important;
-	--bs-btn-active-bg: #078d0d !important;
-	--bs-btn-active-border-color: #046e09 !important;
+    --bs-btn-bg: #11c019 !important;
+    --bs-btn-border-color: #048d0b !important;
+    --bs-btn-hover-bg: #10af18 !important;
+    --bs-btn-hover-border-color: #047c0a !important;
+    --bs-btn-active-bg: #078d0d !important;
+    --bs-btn-active-border-color: #046e09 !important;
 }
