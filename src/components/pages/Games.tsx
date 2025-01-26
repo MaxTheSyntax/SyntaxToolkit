@@ -22,9 +22,7 @@ function Games() {
                 const APIres = await axios.get(`http://${IP}:8800/steamapi/?search=${getQuery()}`);
 
                 // Fetch cover images for each game
-                const coverPromises = APIres.data.games.map((game: { appid: number }) =>
-                    getCover(game.appid)
-                );
+                const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
                 const coverUrls = await Promise.all(coverPromises);
                 setSteamRes(APIres.data);
                 setCoverUrls(coverUrls);
@@ -91,10 +89,14 @@ function Games() {
     }
 
     return (
-        <div className='gamesPage'>	
+        <div className='gamesPage'>
             <center>
                 <h1 className='title'>Games ({steamRes?.game_count})</h1>
-                {getQuery() != '' && <p className='subtitle'><i>{`(filtered results for "${getQuery()}")`}</i></p>}
+                {getQuery() != '' && (
+                    <p className='subtitle'>
+                        <i>{`(filtered results for "${getQuery()}")`}</i>
+                    </p>
+                )}
             </center>
             <div className='games'>
                 {/* Render a div for each game */}
@@ -103,19 +105,12 @@ function Games() {
 
                     return (
                         <div key={game.appid} className='game'>
-                            <img
-                                className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`}
-                                src={'/src/assets/fade.png'}
-                            />
-                            <h3 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}>
-                                {game.name}
-                            </h3>
-                            <img className='gameLogo' src={logoUrls[index]} />
-                            <img
-                                className='gameCover'
-                                src={coverUrls[index]}
-                                alt={`Cover art of ${game.name}`}
-                            />
+                            <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} />
+                            <div className={`gameLogoTextContainer${gameLogoVisible ? ' invisible' : ' visible'}`}>
+                                <h3 className='gameLogoText'>{game.name}</h3>
+                            </div>
+                            <img className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`} src={logoUrls[index]} />
+                            <img className='gameCover' src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
                             <form
                                 className='gameForm'
                                 action={`steam://launch/${game.appid}`}

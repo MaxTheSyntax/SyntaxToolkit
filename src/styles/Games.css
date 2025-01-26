@@ -31,22 +31,40 @@ body {
 	position: absolute;
 	margin: 7px;
 	max-width: calc(var(--gameWidth) / 2);
-	height: calc(var(--gameHeight) - 14px); /* 14px for the margin (top and bottom)*/
+	max-height: calc(var(--gameHeight) - 14px); /* 14px for the margin (top and bottom)*/
 	padding: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	background-color: rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 }
 
-.gameLogoText {
+.gameLogoTextContainer {
 	position: absolute;
 	margin: 15px;
+	padding: 0 10px;
 	font-family: 'Montserrat', sans-serif;
 	font-size: calc(var(--gameWidth) / 15);
-	mix-blend-mode: difference;
-	width: calc(var(--gameWidth) - 30px); /* 30px for the margin */
-	overflow: hidden;
-	text-overflow: ellipsis;
+	width: calc(var(--gameWidth) - 30px); /* 30px for the margin (left and right) */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.5);
+	white-space: nowrap;
+	overflow-x: hidden;
+}
+
+.gameLogoText {
+	display: inline-block;
+	width: auto;
+	margin: 0;
+	animation: scrollText 15s linear infinite;
+}
+
+@keyframes scrollText {
+	0% {
+		transform: translateX(150%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
 }
 
 .fade {
