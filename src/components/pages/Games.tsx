@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../styles/Games.css';
 // import dotenv from 'dotenv';
@@ -13,15 +13,16 @@ function Games() {
         game_count: number;
         games: { appid: number; cover: string; name: string; runURL: string }[];
     } | null>(null);
-    const IP = 'localhost'; // TODO Try to get .env working
-    // Create array of refs
     const textRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+    const IP = 'localhost'; // backend IP
 
     useEffect(() => {
         async function prepareOutsideSources() {
             try {
                 // Fetch data from an external API
-                const APIres = await axios.get(`http://${IP}:8800/steamapi/?search=${getQuery()}`);
+                const APIres = await axios.get(
+                    `http://${IP}:8800/steamapi/?search=${getQuery('search')}&user=${getQuery('user') || localStorage.getItem('steamUser')}`
+                );
 
                 // Fetch cover images for each game
                 const coverPromises = APIres.data.games.map((game: { appid: number }) => getCover(game.appid));
@@ -78,10 +79,10 @@ function Games() {
         });
     }, [steamRes]);
 
-    // Helper function to extract the 'search' query parameter from the URL
-    function getQuery() {
-        const queryParameters = new URLSearchParams(window.location.search);
-        const query = queryParameters.get('search');
+    function getQuery(param: string) {
+        const allParams = new URLSearchParams(window.location.search);
+        const query = allParams.get(param);
+
 
         return query ?? '';
     }
@@ -139,11 +140,37 @@ function Games() {
         <div className='gamesPage'>
             <center>
                 <h1 className='title'>Games ({steamRes?.game_count})</h1>
-                {getQuery() != '' && (
+                {getQuery('search') != '' && (
                     <p className='subtitle'>
-                        <i>{`(filtered results for "${getQuery()}")`}</i>
+                        <i>{`(filtered results for "${getQuery('search')}")`}</i>
                     </p>
                 )}
+                <form
+                    action='/games'
+                    className='filterAndUserPickerForm'
+                    onSubmit={() => {
+                        const userInput = document.querySelector('input[name="user"]') as HTMLInputElement;
+                        if (userInput.value) {
+                            localStorage.setItem('steamUser', userInput.value);
+                        }
+                    }}
+                >
+                    <div className='filters'>
+                        <label>
+                            Search: <input type='text' name='search' placeholder={getQuery('search')} autoFocus />
+                        </label>
+                        <label>
+                            User:{' '}
+                            <input
+                                type='text'
+                                name='user'
+                                placeholder="User's Steam ID"
+                                defaultValue={localStorage.getItem('steamUser') || getQuery('user')}
+                            />
+                        </label>
+                    </div>
+                    <button type='submit'>Search</button>
+                </form>
             </center>
             <div className='games'>
                 {/* Render a div for each game */}

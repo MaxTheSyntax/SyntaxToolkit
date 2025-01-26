@@ -8,6 +8,47 @@ body {
     font-size: 60px;
 }
 
+.filterAndUserPickerForm {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filters {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 5px;
+}
+
+.filters label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    width: 100%;
+    text-align: right;
+    cursor: text;
+    word-spacing: 5px;
+}
+
+.filters input {
+    margin-right: 5px;
+    background-color: rgb(50, 50, 50);
+    color: whitesmoke;
+    padding: 5px 7px;
+    border-color: var(--accent);
+    border-radius: 10px;
+}
+
+.filterAndUserPickerForm button[type='submit'] {
+    background-color: rgb(50, 50, 50);
+    color: whitesmoke;
+    padding: 4px 8px;
+    border-color: var(--accent);
+    border-radius: 7px;
+}
+
 .games {
     display: grid;
     grid-template-columns: repeat(auto-fill, max(var(--gameWidth)));
