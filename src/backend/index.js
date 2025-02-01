@@ -97,9 +97,9 @@ const io = new Server(server, {
     cors: {
         origin: 'http://localhost:3000', // Frontend origin
         methods: ['GET', 'POST'],
-        credentials: true,
+        credentials: true
     },
-    transports: ['websocket'], // Force WebSocket transport
+    transports: ['websocket'] // Force WebSocket transport
 });
 
 io.on('connection', (socket) => {

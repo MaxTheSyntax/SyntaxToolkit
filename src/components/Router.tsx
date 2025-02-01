@@ -11,16 +11,16 @@ const Add = lazy(() => import('./pages/Add'));
 const GameLauncher = lazy(() => import('./pages/GameLauncher'));
 
 function Router() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/games' element={<Games />} />
-				<Route path='/add' element={<Add />} />
-				<Route path='/launcher' element={<GameLauncher />} />
-			</Routes>
-		</BrowserRouter>
-	);
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/add" element={<Add />} />
+                <Route path="/launcher" element={<GameLauncher />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default Router;

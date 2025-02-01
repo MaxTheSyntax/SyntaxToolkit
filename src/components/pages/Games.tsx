@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import '../../styles/Games.css';
 // import dotenv from 'dotenv';
@@ -131,17 +131,17 @@ function Games() {
     };
 
     return (
-        <div className='gamesPage'>
+        <div className="gamesPage">
             <center>
-                <h1 className='title'>Games ({steamRes?.game_count})</h1>
+                <h1 className="title">Games ({steamRes?.game_count})</h1>
                 {getQuery('search') != '' && (
-                    <p className='subtitle'>
+                    <p className="subtitle">
                         <i>{`(filtered results for "${getQuery('search')}")`}</i>
                     </p>
                 )}
                 <form
-                    action='/games'
-                    className='filterAndUserPickerForm'
+                    action="/games"
+                    className="filterAndUserPickerForm"
                     onSubmit={() => {
                         const userInput = document.querySelector('input[name="user"]') as HTMLInputElement;
                         if (userInput.value) {
@@ -149,30 +149,30 @@ function Games() {
                         }
                     }}
                 >
-                    <div className='filters'>
+                    <div className="filters">
                         <label>
-                            Search: <input type='text' name='search' placeholder={getQuery('search')} autoFocus />
+                            Search: <input type="text" name="search" placeholder={getQuery('search')} autoFocus />
                         </label>
                         <label>
                             User:{' '}
                             <input
-                                type='text'
-                                name='user'
+                                type="text"
+                                name="user"
                                 placeholder="User's Steam ID"
                                 defaultValue={localStorage.getItem('steamUser') || getQuery('user')}
                             />
                         </label>
                     </div>
-                    <button type='submit'>Search</button>
+                    <button type="submit">Search</button>
                 </form>
             </center>
-            <div className='games'>
+            <div className="games">
                 {/* Render a div for each game */}
                 {steamRes?.games.map((game, index) => {
                     const gameLogoVisible: boolean = checkGameLogo(index, game.appid);
 
                     return (
-                        <div key={game.appid} className='game'>
+                        <div key={game.appid} className="game">
                             <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} alt="fade" />
                             <h3
                                 ref={(el) => (textRefs.current[index] = el)}
@@ -181,23 +181,27 @@ function Games() {
                             >
                                 {game.name}
                             </h3>
-                            <img className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`} src={logoUrls[index]} alt={`{game.name}'s cover art`} />
-                            <img className='gameCover' src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
+                            <img
+                                className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`}
+                                src={logoUrls[index]}
+                                alt={`{game.name}'s cover art`}
+                            />
+                            <img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
                             <form
-                                className='gameForm'
+                                className="gameForm"
                                 action={`steam://launch/${game.appid}`}
-                                method='POST'
-                                target='_blank'
-                                rel='noopener noreferrer'
+                                method="POST"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <button
-                                    type='submit'
+                                    type="submit"
                                     className={`playButton${hoveredAppid === game.appid ? ' playButtonHovered' : ''}`}
                                     onMouseEnter={handlePlayButtonHover(game.appid, true)}
                                     onMouseLeave={handlePlayButtonHover(game.appid, false)}
                                 >
-                                    <svg className='playGraphic' width='25' viewBox='0 0 460.5 531.74'>
-                                        <polygon fill='#ffffff' points='0.5,0.866 459.5,265.87 0.5,530.874' />
+                                    <svg className="playGraphic" width="25" viewBox="0 0 460.5 531.74">
+                                        <polygon fill="#ffffff" points="0.5,0.866 459.5,265.87 0.5,530.874" />
                                     </svg>
                                     {hoveredAppid === game.appid ? <>&nbsp; {game.name}</> : null}
                                 </button>

@@ -14,12 +14,12 @@ function Navbar() {
 
     return (
         <nav>
-            <a className='logo' href='/'>
+            <a className="logo" href="/">
                 <b>Syntax Toolkit</b>
             </a>
-            <div className='nav-links'>
-                <a href='/games'>Steam Games</a>
-                <a href='/launcher'>Game Launcher</a>
+            <div className="nav-links">
+                <a href="/games">Steam Games</a>
+                <a href="/launcher">Game Launcher</a>
             </div>
         </nav>
     );
