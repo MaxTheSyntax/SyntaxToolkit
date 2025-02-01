@@ -3,11 +3,6 @@ body {
     --gameHeight: 149px; /* gameCoverResHeight(374) / 3 */
 }
 
-.title {
-    margin: 80px 0 0;
-    font-size: 60px;
-}
-
 .filterAndUserPickerForm {
     display: flex;
     flex-flow: column nowrap;

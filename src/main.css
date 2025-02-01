@@ -1,34 +1,38 @@
 * {
-	--accent: aquamarine;
-	box-sizing: border-box;
+    --accent: aquamarine;
+    box-sizing: border-box;
 }
 
 body {
-	background-color: rgb(50, 50, 50);
-	color: whitesmoke;
-	margin: 0;
+    background-color: rgb(50, 50, 50);
+    color: whitesmoke;
+    margin: 0;
 }
 
 h1 {
-	font-family: 'Secular One', sans-serif;
-	font-size: 90px;
+    font-family: 'Secular One', sans-serif;
+    font-size: 90px;
+}
+
+.title {
+    margin: 10px 0;
 }
 
 p {
-	font-family: 'Ropa Sans', sans-serif;
-	font-size: large;
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: large;
 }
 
 .visible {
-	visibility: visible;
+    visibility: visible;
 }
 
 .invisible {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .subtitle {
-	font-size: 17px;
-	margin-top: 0px;
-	color: gray;
+    font-size: 17px;
+    margin-top: 0px;
+    color: gray;
 }
