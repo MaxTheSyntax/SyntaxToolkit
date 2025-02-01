@@ -9,6 +9,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Games = lazy(() => import('./pages/Games'));
 const Add = lazy(() => import('./pages/Add'));
 const GameLauncher = lazy(() => import('./pages/GameLauncher'));
+const AiClient = lazy(() => import('./pages/AiClient'));
 
 function Router() {
     return (
@@ -18,6 +19,7 @@ function Router() {
                 <Route path="/games" element={<Games />} />
                 <Route path="/add" element={<Add />} />
                 <Route path="/launcher" element={<GameLauncher />} />
+                <Route path="/ai" element={<AiClient />} />
             </Routes>
         </BrowserRouter>
     );

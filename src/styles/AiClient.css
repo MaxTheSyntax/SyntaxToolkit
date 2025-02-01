@@ -1,0 +1,64 @@
+.AiPage {
+    display: flex;
+    height: calc(100vh - var(--nav-height));
+}
+
+aside {
+    background-color: black;
+    width: 250px;
+    flex-shrink: 0;
+    display: flex;
+    position: static;
+    flex-flow: column nowrap;
+}
+
+h3 {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.conversations {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    overflow-y: auto;
+}
+
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#conversation {
+    /* display: flex;
+    flex-direction: column; */
+    flex-grow: 1;
+    margin: 0 100px;
+    max-width: 60vw;
+    text-align: justify;
+}
+
+.inputContainer {
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 20px; */
+    width: 100%;
+}
+
+.inputContainer #textbox {
+    width: 700px;
+    height: 50px;
+    padding: 10px 20px;
+    margin: 20px;
+    font-size: 1.2em;
+    border: 1px solid black;
+    border-radius: 1000px;
+    overflow-y: hidden;
+    resize: none;
+}

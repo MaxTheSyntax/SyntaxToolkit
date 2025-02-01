@@ -1,7 +1,11 @@
+* {
+    --nav-height: 60px;
+}
+
 nav {
     margin: 0;
     width: 100%;
-    height: 60px;
+    height: var(--nav-height);
     display: flex;
     align-items: center;
     justify-content: center;

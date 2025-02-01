@@ -20,6 +20,7 @@ function Navbar() {
             <div className="nav-links">
                 <a href="/games">Steam Games</a>
                 <a href="/launcher">Game Launcher</a>
+                <a href="/ai">AI Client</a>
             </div>
         </nav>
     );
