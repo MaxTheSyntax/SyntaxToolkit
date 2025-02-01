@@ -3,14 +3,19 @@
     --accent-dark: #345e50;
     --dark: #191919;
     --secondary-dark: #131313;
+    --light-dark: #323232;
 
     box-sizing: border-box;
 }
 
 body {
-    background-color: rgb(50, 50, 50);
+    background-color: var(--light-dark);
     color: whitesmoke;
     margin: 0;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 h1 {

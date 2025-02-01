@@ -41,7 +41,9 @@ function AiClient() {
                     {/* TODO: Use what deepseek and chatgpt uses*/}
                     <textarea id="textbox" placeholder="Ask away!"></textarea>
                     <div className="options">
-                        <button id="send">Send</button>
+                        <button id="send">
+                            <span className="material-symbols-outlined">send</span>
+                        </button>
                         <select
                             id="modelSelect"
                             value={selectedModel || (ollamaModels && ollamaModels[0]?.name) || ''}
@@ -51,11 +53,18 @@ function AiClient() {
                             }}
                         >
                             {ollamaModels &&
-                                ollamaModels.map((model: { name: string }) => (
-                                    <option key={model.name} value={model.name}>
-                                        {model.name}
-                                    </option>
-                                ))}
+                                ollamaModels.map((model: { name: string }) => {
+                                    const split = model.name.split(':');
+                                    const name = split[0];
+                                    const size = split[1];
+
+                                    return (
+                                        <option key={model.name} value={model.name}>
+                                            <span>{name}</span>
+                                            <span>{size}</span>
+                                        </option>
+                                    );
+                                })}
                         </select>
                     </div>
                 </div>

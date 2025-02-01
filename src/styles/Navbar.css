@@ -57,12 +57,6 @@ input[class='searchBar'] {
     border-color: var(--accent);
     border-radius: 9999999cm;
 }
-.material-symbols-outlined {
-    position: absolute;
-    margin-inline: 15px;
-    right: -50px;
-    top: 2px;
-}
 
 .searchBar::placeholder {
     color: #64738f;

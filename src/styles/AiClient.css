@@ -84,17 +84,46 @@ main {
 .options {
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
     gap: 15px;
 }
 
 .options #send {
-    background-color: var(--accent);
-    color: var(--dark);
+    background-color: var(--light-dark);
+    color: whitesmoke;
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+    /* padding: 10px; */
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 100px;
     font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 200;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send option {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    color: red;
+}
+
+.options #modelSelect {
+    background-color: var(--light-dark);
+    color: whitesmoke;
+    border: none;
+    min-width: 150px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
     font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     transition: background-color 0.3s;
 }
