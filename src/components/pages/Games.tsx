@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import '../../styles/Games.css';
 // import dotenv from 'dotenv';
@@ -70,7 +70,7 @@ function Games() {
     // Check for ellipsis in game titles and adjust font size if necessary
     useEffect(() => {
         // Check all game titles for ellipsis
-        steamRes?.games.forEach((game, index) => {
+        steamRes?.games.forEach((_game, index) => {
             const element = textRefs.current[index];
             if (element && hasEllipsis(element)) {
                 const optimalSize = findOptimalFontSize(element);
@@ -83,22 +83,17 @@ function Games() {
         const allParams = new URLSearchParams(window.location.search);
         const query = allParams.get(param);
 
-
         return query ?? '';
     }
 
     // Helper function to check if a game's logo is visible
     function checkGameLogo(index: number, appid: number) {
-        if (logoUrls[index] == `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`) {
-            return true;
-        } else {
-            return false;
-        }
+        return logoUrls[index] == `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/logo.png`;
     }
 
     // Replace handlePlayButtonHover with simpler version
     function handlePlayButtonHover(appid: number, state: boolean) {
-        return function (event: React.MouseEvent<HTMLButtonElement>) {
+        return function () {
             setHoveredAppid(state ? appid : -1);
         };
     }
@@ -132,8 +127,7 @@ function Games() {
         }
 
         // 'right' contains the largest size
-        const optimalSize = right;
-        return optimalSize;
+        return right;
     };
 
     return (
@@ -179,7 +173,7 @@ function Games() {
 
                     return (
                         <div key={game.appid} className='game'>
-                            <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} />
+                            <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} alt="fade" />
                             <h3
                                 ref={(el) => (textRefs.current[index] = el)}
                                 className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}
@@ -187,7 +181,7 @@ function Games() {
                             >
                                 {game.name}
                             </h3>
-                            <img className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`} src={logoUrls[index]} />
+                            <img className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`} src={logoUrls[index]} alt={`{game.name}'s cover art`} />
                             <img className='gameCover' src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
                             <form
                                 className='gameForm'
