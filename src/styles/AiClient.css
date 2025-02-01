@@ -4,7 +4,7 @@
 }
 
 aside {
-    background-color: black;
+    background-color: var(--secondary-dark);
     width: 250px;
     flex-shrink: 0;
     display: flex;
@@ -43,22 +43,58 @@ main {
 }
 
 .inputContainer {
-    height: 75px;
+    background-color: var(--dark);
+    height: 150px;
+    margin: 20px 0;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* gap: 20px; */
-    width: 100%;
+    flex-flow: column wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 20px;
 }
 
 .inputContainer #textbox {
     width: 700px;
-    height: 50px;
-    padding: 10px 20px;
-    margin: 20px;
-    font-size: 1.2em;
-    border: 1px solid black;
-    border-radius: 1000px;
-    overflow-y: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: whitesmoke;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    overflow-y: auto;
     resize: none;
+    flex-grow: 1;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-dark) transparent;
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--accent);
+        border-radius: 4px;
+    }
+}
+
+.options {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+}
+
+.options #send {
+    background-color: var(--accent);
+    color: var(--dark);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }

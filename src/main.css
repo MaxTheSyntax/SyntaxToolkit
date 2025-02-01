@@ -1,5 +1,9 @@
 * {
     --accent: aquamarine;
+    --accent-dark: #345e50;
+    --dark: #191919;
+    --secondary-dark: #131313;
+
     box-sizing: border-box;
 }
 

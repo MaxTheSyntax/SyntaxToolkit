@@ -11,7 +11,7 @@ nav {
     justify-content: center;
     position: sticky;
     top: 0;
-    background-color: rgb(25, 25, 25);
+    background-color: var(--dark);
     z-index: 10;
 }
 
