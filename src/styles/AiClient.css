@@ -106,24 +106,67 @@ main {
     transition: background-color 0.3s;
 }
 
-#send option {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    color: red;
-}
-
-.options #modelSelect {
+.options .modelSelect {
     background-color: var(--light-dark);
     color: whitesmoke;
     border: none;
     min-width: 150px;
     text-align: center;
-    padding: 5px;
+    padding: 7px 15px;
     border-radius: 10px;
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.options #send:hover,
+.options .modelSelect:hover,
+.options #models #model:hover {
+    background-color: var(--accent-dark);
+}
+
+.options .modelText {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+#modelList {
+    min-width: 300px;
+    /* min-height: 300px; */
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    position: absolute;
+    transform: translate(-5px, -120px);
+    background-color: var(--secondary-light-dark);
+    padding: 15px;
+    border-radius: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.1s;
+}
+
+#modelList .model {
+    height: 40px;
+    background: transparent;
+    border: 1px solid #5f5f5f;
+    border-radius: 7px;
+    padding: 0 15px;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#modelList .model:hover {
+    background-color: var(--light-dark);
+}
+
+.modelText > span.modelSize {
+    font-size: 0.8em;
+    font-weight: 200;
+    opacity: 0.5;
 }
