@@ -41,8 +41,7 @@ function GameLauncher() {
     }
 
     return (
-        <div className="App">
-            <header className="App-header">
+        <div id="game-launcher-page">
                 <h1>Remote App Opener</h1>
                 <p className="subtitle">This is supposed to be used together with the Discord bot to remotely launch games.</p>
                 {!gameAppId && <p className="listen-text">Listening for commands...</p>}
@@ -56,7 +55,6 @@ function GameLauncher() {
 						<p key={index}>Opened {element}</p>
 					))} */}
                 </div>
-            </header>
         </div>
     );
 }
