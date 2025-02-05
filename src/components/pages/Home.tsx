@@ -2,7 +2,7 @@ import '../../styles/Home.css';
 
 function Home() {
     return (
-        <div className="homePage">
+        <div id="home-page">
             <div id="welcome">
                 <h1 id="logo">Welcome to Syntax Toolkit!</h1>
                 <p className="subtitle" id="logo-subtitle">

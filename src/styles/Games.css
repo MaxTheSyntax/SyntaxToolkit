@@ -8,7 +8,7 @@ body {
     font-size: 60px;
 }
 
-.filterAndUserPickerForm {
+.filter-and-user-picker-form {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -62,13 +62,13 @@ body {
     height: var(--gameHeight);
 }
 
-.gameCover {
+.game-cover {
     width: var(--gameWidth);
     height: var(--gameHeight);
     object-fit: cover;
 }
 
-.gameLogo {
+.game-logo {
     position: absolute;
     margin: 7px;
     max-width: calc(var(--gameWidth) / 2);
@@ -79,7 +79,7 @@ body {
     overflow: hidden;
 }
 
-.gameLogoText {
+.game-logo-text {
     position: absolute;
     margin: 15px;
     padding: 0 10px;
@@ -100,12 +100,12 @@ body {
     visibility: hidden;
 }
 
-form[class='gameForm'] {
+.game-form {
     position: relative;
     bottom: 50px;
 }
 
-.playButton {
+.play-button {
     position: relative;
     bottom: 10px;
     left: calc(var(--gameWidth) - 60px);
@@ -127,7 +127,7 @@ form[class='gameForm'] {
     height: 65px;
 }
 
-.playGraphic {
+.play-graphic {
     stroke: transparent;
     stroke-width: 0px;
     vertical-align: text-top;

@@ -131,7 +131,7 @@ function Games() {
     };
 
     return (
-        <div className="gamesPage">
+        <div id="games-page">
             <center>
                 <h1 className="title">Games ({steamRes?.game_count})</h1>
                 {getQuery('search') != '' && (
@@ -141,7 +141,7 @@ function Games() {
                 )}
                 <form
                     action="/games"
-                    className="filterAndUserPickerForm"
+                    className="filter-and-user-picker-form"
                     onSubmit={() => {
                         const userInput = document.querySelector('input[name="user"]') as HTMLInputElement;
                         if (userInput.value) {
@@ -176,19 +176,19 @@ function Games() {
                             <img className={`fade${hoveredAppid === game.appid ? ' visible' : ''}`} src={'/src/assets/fade.png'} alt="fade" />
                             <h3
                                 ref={(el) => (textRefs.current[index] = el)}
-                                className={`gameLogoText${gameLogoVisible ? ' invisible' : ' visible'}`}
+                                className={`game-logo-text${gameLogoVisible ? ' invisible' : ' visible'}`}
                                 title={game.name}
                             >
                                 {game.name}
                             </h3>
                             <img
-                                className={`gameLogo${gameLogoVisible ? ' visible' : ' invisible'}`}
+                                className={`game-logo${gameLogoVisible ? ' visible' : ' invisible'}`}
                                 src={logoUrls[index]}
                                 alt={`{game.name}'s cover art`}
                             />
-                            <img className="gameCover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
+                            <img className="game-cover" src={coverUrls[index]} alt={`Cover art of ${game.name}`} />
                             <form
-                                className="gameForm"
+                                className="game-form"
                                 action={`steam://launch/${game.appid}`}
                                 method="POST"
                                 target="_blank"
@@ -196,11 +196,11 @@ function Games() {
                             >
                                 <button
                                     type="submit"
-                                    className={`playButton${hoveredAppid === game.appid ? ' playButtonHovered' : ''}`}
+                                    className={`play-button${hoveredAppid === game.appid ? ' playButtonHovered' : ''}`}
                                     onMouseEnter={handlePlayButtonHover(game.appid, true)}
                                     onMouseLeave={handlePlayButtonHover(game.appid, false)}
                                 >
-                                    <svg className="playGraphic" width="25" viewBox="0 0 460.5 531.74">
+                                    <svg className="play-graphic" width="25" viewBox="0 0 460.5 531.74">
                                         <polygon fill="#ffffff" points="0.5,0.866 459.5,265.87 0.5,530.874" />
                                     </svg>
                                     {hoveredAppid === game.appid ? <>&nbsp; {game.name}</> : null}
