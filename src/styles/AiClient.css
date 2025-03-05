@@ -44,6 +44,8 @@ main {
 
 .inputContainer {
     background-color: var(--dark);
+    max-width: 700px;
+    width: 100%;
     height: 150px;
     margin: 20px 0;
     padding: 20px;
@@ -56,7 +58,6 @@ main {
 }
 
 .inputContainer #textbox {
-    width: 700px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     color: whitesmoke;
