@@ -25,7 +25,8 @@
 		"node": "^20.5.0",
 		"node.fs": "^1.0.2",
 		"nodemon": "^3.0.1",
-		"npx": "^3.0.0",
+		"npx": "^10.2.2",
+		"ollama": "^0.5.14",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.11.1",
@@ -39,8 +40,8 @@
 		"@types/react": "^18.0.28",
 		"@types/react-dom": "^18.0.11",
 		"@types/react-router-dom": "^5.3.3",
-		"@vitejs/plugin-react": "^3.1.0",
+		"@vitejs/plugin-react": "^4.3.4",
 		"typescript": "^4.9.3",
-		"vite": "^4.5.9"
+		"vite": "^6.2.0"
 	}
 }

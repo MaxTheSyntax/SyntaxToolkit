@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { openDB } from 'idb';
+import ollama from 'ollama';
 import '../../styles/AiClient.css';
+
+// Define a function to initialize the database and store
+async function initializeStore(storeName: string) {
+    const db = await openDB('chatDB', 1, {
+        upgrade(db) {
+            // Create the store if it doesn't exist
+            if (!db.objectStoreNames.contains(storeName)) {
+                db.createObjectStore(storeName, { autoIncrement: true });
+            }
+        }
+    });
+    return db;
+}
 
 function AiClient() {
     const [ollamaModels, setOllamaModels] = useState<
@@ -11,7 +25,7 @@ function AiClient() {
         | null
     >(null);
     const [selectedModel, setSelectedModel] = useState(localStorage.getItem('selectedModel') || '');
-    let conversationId = generateRandomId();
+    const [conversationId] = useState(generateRandomId()); // Move to state to keep persistent
 
     useEffect(() => {
         async function fetchModels() {
@@ -45,6 +59,82 @@ function AiClient() {
         return Array.from({ length: 16 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
     }
 
+    async function handleSendMessage() {
+        const textbox = document.getElementById('textbox') as HTMLTextAreaElement;
+        const message = textbox.value.trim();
+
+        if (!message) return;
+
+        const storeName = `chat-${conversationId}`;
+
+        let db = null;
+        try {
+            db = await initializeStore(storeName);
+
+            // Check if store exists, if not create it
+            if (!db.objectStoreNames.contains(storeName)) {
+                db.close();
+                // Increment version to trigger upgrade
+                const newDb = await openDB('chatDB', db.version + 1, {
+                    upgrade(db) {
+                        db.createObjectStore(storeName, { autoIncrement: true });
+                    }
+                });
+                db = newDb;
+            }
+
+            // Save message to store
+            const tx = db.transaction(storeName, 'readwrite');
+            const store = tx.objectStore(storeName);
+            await store.add({
+                role: 'user',
+                content: message
+            });
+            await tx.done;
+
+            textbox.value = '';
+        } catch (error) {
+            console.error('Failed to save message:', error);
+            return;
+        }
+
+        // Retrieve all messages from IndexedDB store for conversation
+        const tx2 = db.transaction(storeName, 'readonly');
+        const store2 = tx2.objectStore(storeName);
+        const messages = await store2.getAll();
+        await tx2.done;
+
+        // Send conversation to AI
+        const response = await ollama.chat({
+            model: selectedModel,
+            messages: messages
+        });
+        const completion = response.message.content;
+
+        // Save AI completion to IndexedDB
+        try {
+            const tx = db.transaction(storeName, 'readwrite');
+            const store = tx.objectStore(storeName);
+            await store.add({
+                role: 'assistant',
+                content: completion
+            });
+            await tx.done;
+        } catch (error) {
+            console.error('Failed to save AI completion:', error);
+        }
+
+        // Display new message
+        const conversation = document.getElementById('conversation');
+        if (conversation) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add('assistant');
+            messageDiv.textContent = completion;
+            conversation.appendChild(messageDiv);
+        }
+    }
+
     return (
         <div className="AiPage">
             <aside>
@@ -61,32 +151,7 @@ function AiClient() {
                     {/* TODO: Use what deepseek and chatgpt uses*/}
                     <textarea id="textbox" placeholder="Ask away!"></textarea>
                     <div className="options">
-                        <button
-                            id="send"
-                            onClick={async () => {
-                                const textbox = document.getElementById('textbox') as HTMLTextAreaElement;
-                                const message = textbox.value.trim();
-
-                                if (!message) return;
-
-                                // FIX ME
-
-                                const db = await openDB('chatDB', 1, {
-                                    upgrade(db) {
-                                        if (!db.objectStoreNames.contains(`chat-${conversationId}`)) {
-                                            db.createObjectStore(conversationId, { autoIncrement: true });
-                                        }
-                                    }
-                                });
-
-                                await db.add('messages', {
-                                    role: 'user',
-                                    content: message
-                                });
-
-                                textbox.value = '';
-                            }}
-                        >
+                        <button id="send" onClick={handleSendMessage}>
                             <span className="material-symbols-outlined">send</span>
                         </button>
                         <button className="modelSelect" onClick={toggleModelsDisplay}>
