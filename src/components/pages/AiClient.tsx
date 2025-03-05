@@ -6,7 +6,12 @@ import '../../styles/AiClient.css';
 
 // Define a function to initialize the database and store
 async function initializeStore(storeName: string) {
-    const db = await openDB('chatDB', 1, {
+    // Get current version or start with 1
+    const existingDB = await openDB('chatDB');
+    const version = existingDB ? existingDB.version + 1 : 1;
+    existingDB?.close();
+
+    const db = await openDB('chatDB', version, {
         upgrade(db) {
             // Create the store if it doesn't exist
             if (!db.objectStoreNames.contains(storeName)) {
@@ -99,10 +104,22 @@ function AiClient() {
         }
 
         // Retrieve all messages from IndexedDB store for conversation
-        const tx2 = db.transaction(storeName, 'readonly');
-        const store2 = tx2.objectStore(storeName);
+        const tx = db.transaction(storeName, 'readonly');
+        const store2 = tx.objectStore(storeName);
         const messages = await store2.getAll();
-        await tx2.done;
+        await tx.done;
+
+        console.table(messages);
+
+        // Display new user message
+        const conversation = document.getElementById('conversation');
+        if (conversation) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add('user');
+            messageDiv.innerText = message;
+            conversation.appendChild(messageDiv);
+        }
 
         // Send conversation to AI
         const response = await ollama.chat({
@@ -124,13 +141,12 @@ function AiClient() {
             console.error('Failed to save AI completion:', error);
         }
 
-        // Display new message
-        const conversation = document.getElementById('conversation');
+        // Display new completion
         if (conversation) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add('assistant');
-            messageDiv.textContent = completion;
+            messageDiv.innerHTML = completion;
             conversation.appendChild(messageDiv);
         }
     }

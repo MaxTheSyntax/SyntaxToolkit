@@ -34,12 +34,22 @@ main {
 }
 
 #conversation {
-    /* display: flex;
-    flex-direction: column; */
-    flex-grow: 1;
-    margin: 0 100px;
+    display: flex;
+    width: 100%;
     max-width: 60vw;
-    text-align: justify;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 70px;
+    gap: 20px;
+    /* text-align: justify; */
+}
+
+#conversation .user {
+    align-self: flex-end;
+}
+
+#conversation .assistant {
+    align-self: flex-start;
 }
 
 .inputContainer {
