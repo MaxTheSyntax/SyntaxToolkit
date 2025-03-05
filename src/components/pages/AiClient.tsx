@@ -69,6 +69,8 @@ function AiClient() {
 
                                 if (!message) return;
 
+                                // FIX ME
+
                                 const db = await openDB('chatDB', 1, {
                                     upgrade(db) {
                                         if (!db.objectStoreNames.contains(`chat-${conversationId}`)) {
